@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Research & Projects · Garrett Thrash</title>
+<meta name="description" content="What Garrett Thrash is working on: adaptive DBS decoding in the Walker Lab, the AnalyzeLFPs open-source app, analysis pipelines, and global neurosurgery research.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%231f5f4a'/%3E%3Ctext x='32' y='42' font-family='Georgia,serif' font-size='30' font-weight='600' fill='white' text-anchor='middle'%3EGT%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="topbar" aria-label="Site">
+  <div class="wrap">
+    <a class="brand" href="index.html">Garrett W. Thrash</a>
+    <ul>
+      <li><a href="research.html" aria-current="page">Research &amp; Projects</a></li>
+      <li><a href="publications.html">Publications</a></li>
+      <li><a href="cv.pdf" target="_blank" rel="noopener">CV (PDF)</a></li>
+      <li><a href="mailto:gthrash@uab.edu">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+<main class="wrap">
+<div class="page-title">
+  <h1>Research &amp; Projects</h1>
+  <p>What I am working on now, the tools I build to do it, and the work that led here.</p>
+</div>
+
+<section id="about">
+  <h2>About</h2>
+  <p class="lede">I am a fourth-year medical student at the UAB Heersink School of Medicine and a PhD student in Neuroengineering at the University of Alabama at Birmingham. In Dr. Harrison Walker's lab I work on machine-learning decoding of subthalamic nucleus recordings for adaptive deep brain stimulation and brain-computer interfaces.</p>
+  <p>My work to date spans neuromodulation for movement and sleep disorders, evidence synthesis and meta-analysis in neurosurgery and neurology, and equitable access to neurological care in low- and middle-income countries. Before medicine I studied chemistry at Birmingham-Southern College, where I also played football, and I grew up working on a potato farm in northeast Alabama. I am also a 2026–2027 Doximity Op-Med Medical Writing Fellow.</p>
+  <ul class="tags">
+    <li>Deep brain stimulation</li>
+    <li>Adaptive neuromodulation</li>
+    <li>Brain-computer interfaces</li>
+    <li>Neural decoding &amp; machine learning</li>
+    <li>Intraoperative electrophysiology</li>
+    <li>Open-source scientific software</li>
+    <li>Evidence synthesis &amp; meta-analysis</li>
+    <li>Global neurosurgery &amp; health equity</li>
+  </ul>
+</section>
+
+<section id="walker">
+  <h2>Walker Lab: decoding the subthalamic nucleus</h2>
+  <p><b>UAB Neurology · Dr. Harrison Walker · 2026 – present · planned dissertation laboratory</b></p>
+  <p>Intraoperative recordings from the subthalamic nucleus and cortex during deep brain stimulation surgery, made while patients rest, move, and speak. The goal is to decode behavioral state from these signals well enough to drive adaptive stimulation, and to understand how directional stimulation changes speech and movement. Methods: spectral and time-frequency analysis of local field potentials, band-power and phase-amplitude features, permutation statistics, and supervised decoders trained on labeled task windows.</p>
+
+  <p class="subhead">Interactive figures</p>
+  <p class="muted">Figures below are interactive. Hover for values, drag to zoom, double-click to reset. New figures are added by dropping a file into the site's <code>figures</code> folder and listing it in <code>figures.json</code>; nothing here contains patient-level data.</p>
+  <div class="figures" id="figures"><div class="figures-empty">Loading figures…</div></div>
+</section>
+
+<section id="tools">
+  <h2>Tools I build</h2>
+  <ul class="cards">
+    <li class="card">
+      <span class="status">Open source · MIT · active</span>
+      <h3>AnalyzeLFPs</h3>
+      <p>A desktop-hosted web app for intraoperative DBS and ECoG recordings. It reads TDT, BrainVision, and EDF data through one reader, describes each recording in a hand-curated manifest, gates every analysis behind a signed human QC review, and runs recipes for spectra, band-power contrasts with permutation tests, time-frequency, phase-amplitude coupling, event-locked averages, and ERNA. Thirteen guardrails check each run before anything is computed. Nothing leaves the machine.</p>
+      <p>It ships with a 46-lesson graduate-level curriculum on the mathematics behind the analysis, from linear algebra and DSP to spike sorting and directional leads, as paired student and solution notebooks.</p>
+      <div class="links"><a href="https://github.com/gthrash54/AnalyzeLFPs" target="_blank" rel="noopener">Repository</a><a href="https://github.com/gthrash54/AnalyzeLFPs/tree/main/curriculum" target="_blank" rel="noopener">Curriculum</a></div>
+    </li>
+    <li class="card">
+      <span class="status">Pipeline · in use</span>
+      <h3>DBS recording inventory and derivatives</h3>
+      <p>A staging toolchain for a multi-case intraoperative dataset: verifies every raw file is readable, builds an inventory of leads, contacts, and streams per case, derives condition labels and task states, computes audio coherence and video motion traces for behavioral alignment, and writes de-identified derivatives to a separate store. Raw data and the identity crosswalk never leave the acquisition machine.</p>
+      <div class="links"><span class="muted">Python · private data, code on request</span></div>
+    </li>
+    <li class="card">
+      <span class="status">Pipeline · in use</span>
+      <h3>AI-assisted evidence screening</h3>
+      <p>A hybrid title-and-abstract screening pipeline for large systematic and scoping reviews. A language model votes on every record with a confidence and exclusion code; high-confidence exclusions are removed only after both human reviewers validate a random sample against a pre-declared error threshold; the model then acts as second reviewer on the retained set, with humans deciding every disagreement. Follows the 2025 Cochrane/Campbell/JBI/CEE position statement and RAISE recommendations.</p>
+      <div class="links"><span class="muted">Python · Anthropic API · Covidence</span></div>
+    </li>
+  </ul>
+</section>
+
+<section id="experience">
+  <h2>Research Experience</h2>
+<ul class="entries">
+    <li class="entry">
+      <div class="when">2026 – present</div>
+      <div class="what">
+        <h3>Walker Research Lab, UAB Neurology</h3>
+        <div class="where">Dr. Harrison Walker · Planned dissertation laboratory, Neuroengineering PhD</div>
+        <ul>
+          <li>Machine-learning decoding of subthalamic nucleus recordings for adaptive deep brain stimulation and brain-computer interfaces.</li>
+        </ul>
+      </div>
+    </li>
+    <li class="entry">
+      <div class="when">2024 – present</div>
+      <div class="what">
+        <h3>Global Neurosurgery Research Group, Mission:Brain Foundation</h3>
+        <div class="where">Coordinator</div>
+        <ul>
+          <li>Coordinate roughly 35 international medical graduates, mainly from low- and middle-income countries, in a multi-project research group advancing equitable access to neurological care.</li>
+          <li>Lead members across many time zones and backgrounds toward shared goals; sharpen scientific writing, study design, and critical review across the group.</li>
+        </ul>
+      </div>
+    </li>
+    <li class="entry">
+      <div class="when">2023 – present</div>
+      <div class="what">
+        <h3>Holland Clinical Research Lab, UAB Neurosurgery</h3>
+        <div class="where">Dr. Marshall Holland</div>
+        <ul>
+          <li>Joined as a first-year medical student on a single systematic review; grew into co-leading lab meetings and mentoring younger medical students and undergraduates.</li>
+          <li>Chart review, data collection, study design, and manuscript writing; managed submission and revision for multiple manuscripts and IRB protocols.</li>
+          <li>Designed independent studies and authored original IRB protocols.</li>
+        </ul>
+      </div>
+    </li>
+    <li class="entry">
+      <div class="when">2022 – 2023</div>
+      <div class="what">
+        <h3>Immunology Research, UAB</h3>
+        <div class="where">Dr. Chander Raman</div>
+        <ul>
+          <li>Investigated ultraviolet B-induced immune suppression in murine models and cell lines, including vitamin D3 effects on samples from multiple sclerosis and lupus patients.</li>
+          <li>Cell culture, flow cytometry, and confocal microscopy; cryosectioning and staining of lymph node, spleen, and skin tissue.</li>
+          <li>High-dimensional flow cytometry analysis in FlowJo (tSNE, UMAP, TriMap).</li>
+          <li>Oversaw breeding, treatment, and upkeep of multiple transgenic mouse lines.</li>
+        </ul>
+      </div>
+    </li>
+    <li class="entry">
+      <div class="when">2021 – 2022</div>
+      <div class="what">
+        <h3>Enzyme Kinetics Research, Birmingham-Southern College</h3>
+        <div class="where">Dr. Kate Hayden</div>
+        <ul>
+          <li>Expressed novel enzymes from vector-transfected plasmids; purified target proteins by SDS-PAGE, centrifugal size exclusion, and His-tag affinity chromatography.</li>
+          <li>Kinetic assays on tvGAPDH, cdGAPDH, and cpPK; Michaelis-Menten and Lineweaver-Burk modelling of K<sub>m</sub> and V<sub>max</sub> for medicinal-chemistry collaborators.</li>
+        </ul>
+      </div>
+    </li>
+  </ul>
+</section>
+
+<section id="service">
+  <h2>Leadership &amp; Global Neurosurgery</h2>
+  <ul class="entries">
+    <li class="entry">
+      <div class="when">2023 – present</div>
+      <div class="what">
+        <h3>Mission:Brain Foundation</h3>
+        <div class="where">UAB Chapter President · Regional Chair of Outreach · Coordinator, Global Neurosurgery Research Group</div>
+        <ul>
+          <li>Launched Project:RISE (annual lecture on research equity for international medical graduates in low- and middle-income countries), NeuroCamp (a year-long neuroscience curriculum for Birmingham middle school students), and a spina bifida prevention campaign promoting corn masa folate fortification.</li>
+          <li>As Outreach Chair, direct fundraising, inventory, and equipment logistics supporting Sierra Leone's first publicly accessible neurosurgical service, in coordination with the WFNS and the Ministry of Health.</li>
+          <li>Coordinate the roughly 35-member Global Neurosurgery Research Group; oversee a manuscript bundle mapping global neurosurgery stakeholders in line with the Boston Declaration.</li>
+        </ul>
+      </div>
+    </li>
+    <li class="entry">
+      <div class="when">2024 – present</div>
+      <div class="what">
+        <h3>Alabama House Bill 384: Corn Masa Folic Acid Fortification</h3>
+        <div class="where">Health policy and advocacy</div>
+        <p>Worked with the Children's of Alabama pediatric neurosurgery team to support passage of state legislation establishing folic acid fortification of corn masa, addressing the elevated prevalence of spina bifida in Hispanic communities.</p>
+      </div>
+    </li>
+  </ul>
+  <p class="muted" style="margin-top:1.5rem">Honors, teaching, service, and full history are in the <a href="cv.pdf" target="_blank" rel="noopener">CV (PDF)</a>.</p>
+</section>
+
+</main>
+
+<script>
+(async () => {
+  const host = document.getElementById('figures');
+  try {
+    const res = await fetch('figures/figures.json', {cache: 'no-store'});
+    if (!res.ok) throw new Error(res.status);
+    const list = await res.json();
+    if (!list.length) { host.innerHTML = '<div class="figures-empty">No figures yet.</div>'; return; }
+    host.innerHTML = '';
+    for (const f of list) {
+      const fig = document.createElement('figure'); fig.className = 'figure';
+      const src = 'figures/' + f.file;
+      if (/\.html?$/i.test(f.file)) {
+        const ifr = document.createElement('iframe');
+        ifr.src = src; ifr.loading = 'lazy'; ifr.title = f.title; ifr.style.height = (f.height || 440) + 'px';
+        fig.appendChild(ifr);
+      } else {
+        const img = document.createElement('img'); img.src = src; img.alt = f.title; img.loading = 'lazy';
+        fig.appendChild(img);
+      }
+      const cap = document.createElement('figcaption');
+      cap.innerHTML = '<b></b> ' ; cap.querySelector('b').textContent = f.title;
+      cap.appendChild(document.createTextNode(f.caption || ''));
+      fig.appendChild(cap); host.appendChild(fig);
+    }
+  } catch (e) {
+    host.innerHTML = '<div class="figures-empty">Figures could not be loaded' + (location.protocol === 'file:' ? ' when the page is opened as a local file. They load on the live site.' : '.') + '</div>';
+  }
+})();
+</script>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Garrett W. Thrash · garrettthrash.com</span>
+    <span><a href="index.html">Home</a> · <a href="https://github.com/gthrash54/gthrash54.github.io">Site source</a></span>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,12 +1,20 @@
-# gthrash54.github.io
+# garrettthrash.com
 
-Garrett Thrash's online CV. Plain HTML + CSS, no build step.
+Garrett Thrash's personal site. Plain HTML + CSS, hosted on GitHub Pages, no build step.
 
-- `index.html` — the page (edit the text directly)
-- `style.css` — styling (light, dark, and print)
+| File | What it is |
+| --- | --- |
+| `index.html` | Landing page with the buttons |
+| `research.html` | Research & Projects: Walker Lab, interactive figures, tools, experience |
+| `publications.html` | Publications and presentations |
+| `cv.pdf` | Copy of `~/Dropbox/CV/CV_GWT.pdf` (refreshed by `update.sh`) |
+| `figures/` | Interactive figures for the Research page; see `figures/README.md` |
+| `style.css` | All styling (light, dark, print) |
 
-To publish changes, edit the files, then from this folder run:
+## Publishing changes
 
-    git add -A && git commit -m "Update CV" && git push
+From this folder:
 
-GitHub Pages redeploys in about a minute.
+    ./update.sh
+
+It copies the latest CV PDF from Dropbox, commits, and pushes. The site updates in about a minute.

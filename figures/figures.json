@@ -1,0 +1,8 @@
+[
+  {
+    "title": "Demo: synthetic STN spectrum, rest vs. speech",
+    "file": "demo-spectrum.html",
+    "caption": "A placeholder built from synthetic data to show how interactive figures appear here: 1/f background with a planted 20 Hz beta peak that drops during speech. Real figures will replace this as results are ready to share.",
+    "height": 440
+  }
+]
