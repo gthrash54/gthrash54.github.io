@@ -36,11 +36,28 @@
 <main class="landing">
   <canvas id="lfp" aria-hidden="true"></canvas>
   <div class="wrap">
-    <img class="portrait" src="headshot.jpg" alt="Garrett Thrash" width="168" height="168">
+    <div class="portrait-wrap" aria-hidden="false">
+      <svg class="lead-ring" viewBox="0 0 200 200" aria-hidden="true">
+        <circle cx="100" cy="100" r="94" fill="none" stroke="rgba(70,211,194,.18)" stroke-width="1"/>
+        <g fill="none" stroke="#46d3c2" stroke-width="3.5" stroke-linecap="round" transform="rotate(-90 100 100)">
+          <circle class="seg" cx="100" cy="100" r="94" stroke-dasharray="65 8" pathLength="292"/>
+        </g>
+        <g fill="none" stroke="#f2b352" stroke-width="3.5" stroke-linecap="round" transform="rotate(-90 100 100)">
+          <circle class="seg active" cx="100" cy="100" r="94" stroke-dasharray="18 274" pathLength="292"/>
+        </g>
+        <g class="ticks" stroke="rgba(233,238,248,.35)" stroke-width="1">
+          <path d="M100 2v6M100 192v6M2 100h6M192 100h6"/>
+        </g>
+      </svg>
+      <img class="portrait" src="headshot.jpg" alt="Garrett Thrash with his son on his shoulders" width="200" height="200">
+    </div>
     <p class="eyebrow">Neuroengineering · Neurology · Birmingham, AL</p>
     <h1>Garrett W. Thrash</h1>
     <p class="tagline">MD Candidate (Class of 2027) · PhD Student, Neuroengineering<br>University of Alabama at Birmingham</p>
     <p class="intro">I decode intracranial local field potentials (LFPs) for adaptive deep brain stimulation, build open-source tools for intraoperative neural data, and study equitable access to neurological care.</p>
+    <ul class="readout" aria-label="Focus areas">
+      <li>STN · GPi · ECoG</li><li>β 13–30 Hz</li><li>adaptive DBS</li><li>neural decoding</li><li>BCI</li>
+    </ul>
 
     <ul class="buttons">
       <li><a class="btn primary" href="cv.pdf" target="_blank" rel="noopener"><span class="lbl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l5 5v13H6z"/><path d="M15 3v5h5M9 13h6M9 17h6"/></svg>Curriculum Vitae</span><small>PDF</small></a></li>
@@ -62,34 +79,39 @@
 </main>
 
 <script>
-// Background: slowly scrolling synthetic multichannel LFP-like traces. Synthetic, not patient data.
+// Background: a drifting neural network with pulses travelling along links, and multichannel LFP-like traces
+// along the bottom. All synthetic; no patient data.
 (() => {
   const cv = document.getElementById('lfp'); const ctx = cv.getContext('2d');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const CH = 7; let W, H, dpr, t = 0;
-  const chans = Array.from({length: CH}, (_, i) => ({
-    seed: i * 1.7 + 0.3,
-    f: [4 + i * 0.6, 12 + i * 1.3, 20 + (i % 3) * 1.5, 62 + i * 3],
-    a: [0.9, 0.45, 0.8, 0.18],
-    ph: [i * 0.9, i * 2.1, i * 0.4, i * 1.3]
-  }));
-  function resize() { dpr = Math.min(devicePixelRatio || 1, 2); W = cv.clientWidth; H = cv.clientHeight; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); }
-  function sig(c, x) { // x in seconds
-    let v = 0; for (let k = 0; k < 4; k++) { const burst = k === 2 ? 0.5 + 0.5 * Math.sin(x * 0.7 + c.seed) : 1; v += c.a[k] * burst * Math.sin(2 * Math.PI * c.f[k] * x * 0.25 + c.ph[k]); }
-    v += 0.35 * Math.sin(x * 37.1 + c.seed) * Math.sin(x * 11.3 + 2 * c.seed); return v;
+  let W, H, dpr, t = 0, nodes = [], pulses = [];
+  const N = 46, R = 150;
+  function resize() {
+    dpr = Math.min(devicePixelRatio || 1, 2); W = cv.clientWidth; H = cv.clientHeight; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    nodes = Array.from({length: N}, () => ({x: Math.random() * W, y: Math.random() * H * 0.78, vx: (Math.random() - .5) * .18, vy: (Math.random() - .5) * .18, r: 1.2 + Math.random() * 1.8, ph: Math.random() * 6.28}));
+  }
+  const CH = 5, chans = Array.from({length: CH}, (_, i) => ({seed: i * 1.7 + .3, f: [4 + i * .6, 12 + i * 1.3, 20 + (i % 3) * 1.5, 62 + i * 3], a: [.9, .45, .8, .18], ph: [i * .9, i * 2.1, i * .4, i * 1.3]}));
+  function sig(c, x) { let v = 0; for (let k = 0; k < 4; k++) { const burst = k === 2 ? .5 + .5 * Math.sin(x * .7 + c.seed) : 1; v += c.a[k] * burst * Math.sin(2 * Math.PI * c.f[k] * x * .25 + c.ph[k]); } return v + .35 * Math.sin(x * 37.1 + c.seed) * Math.sin(x * 11.3 + 2 * c.seed); }
+  function step() {
+    for (const n of nodes) { n.x += n.vx; n.y += n.vy; if (n.x < 0 || n.x > W) n.vx *= -1; if (n.y < 0 || n.y > H * .78) n.vy *= -1; }
+    if (Math.random() < .06 && pulses.length < 14) { const a = nodes[(Math.random() * N) | 0]; let best = null, bd = R * R; for (const b of nodes) { if (b === a) continue; const d = (a.x - b.x) ** 2 + (a.y - b.y) ** 2; if (d < bd && Math.random() < .5) { bd = d; best = b; } } if (best) pulses.push({a, b: best, p: 0}); }
+    for (const p of pulses) p.p += .022; pulses = pulses.filter(p => p.p < 1);
   }
   function draw() {
     ctx.clearRect(0, 0, W, H);
-    const gap = H / (CH + 1); const amp = Math.min(gap * 0.42, 34); const px = 1.6; // px per sample
-    for (let i = 0; i < CH; i++) {
-      const c = chans[i]; const y0 = gap * (i + 1);
-      const g = ctx.createLinearGradient(0, 0, W, 0); g.addColorStop(0, 'rgba(70,211,194,0)'); g.addColorStop(0.2, 'rgba(70,211,194,.55)'); g.addColorStop(0.8, 'rgba(70,211,194,.55)'); g.addColorStop(1, 'rgba(70,211,194,0)');
-      ctx.strokeStyle = g; ctx.lineWidth = 1.1; ctx.beginPath();
-      for (let x = 0; x <= W; x += px) { const s = (x / 60) + t; const y = y0 - amp * sig(c, s); x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y); }
-      ctx.stroke();
-    }
+    // links
+    for (let i = 0; i < N; i++) for (let j = i + 1; j < N; j++) { const a = nodes[i], b = nodes[j]; const d = Math.hypot(a.x - b.x, a.y - b.y); if (d < R) { ctx.strokeStyle = `rgba(70,211,194,${(1 - d / R) * .28})`; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); } }
+    // nodes
+    for (const n of nodes) { const g = .55 + .45 * Math.sin(t * 2 + n.ph); ctx.fillStyle = `rgba(70,211,194,${.35 + .45 * g})`; ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, 6.283); ctx.fill(); }
+    // pulses
+    for (const p of pulses) { const x = p.a.x + (p.b.x - p.a.x) * p.p, y = p.a.y + (p.b.y - p.a.y) * p.p; const g = ctx.createRadialGradient(x, y, 0, x, y, 9); g.addColorStop(0, 'rgba(242,179,82,.95)'); g.addColorStop(1, 'rgba(242,179,82,0)'); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, 9, 0, 6.283); ctx.fill(); }
+    // traces along the bottom
+    const top = H * .80, gap = (H - top) / (CH + 1), amp = Math.min(gap * .45, 16), px = 2;
+    for (let i = 0; i < CH; i++) { const c = chans[i], y0 = top + gap * (i + 1); ctx.strokeStyle = i === 2 ? 'rgba(242,179,82,.55)' : 'rgba(70,211,194,.45)'; ctx.lineWidth = 1.1; ctx.beginPath(); for (let x = 0; x <= W; x += px) { const y = y0 - amp * sig(c, x / 60 + t); x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y); } ctx.stroke(); }
+    // sweep cursor
+    const sx = (t * 90) % (W + 40) - 20; ctx.strokeStyle = 'rgba(233,238,248,.10)'; ctx.beginPath(); ctx.moveTo(sx, top); ctx.lineTo(sx, H); ctx.stroke();
   }
-  function loop() { t += 0.012; draw(); requestAnimationFrame(loop); }
+  function loop() { t += .012; step(); draw(); requestAnimationFrame(loop); }
   addEventListener('resize', () => { resize(); draw(); }, {passive: true});
   resize(); draw(); if (!reduce) requestAnimationFrame(loop);
 })();
