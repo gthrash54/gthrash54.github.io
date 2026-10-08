@@ -13,6 +13,8 @@ Garrett Thrash's personal site. Plain HTML + CSS, hosted on GitHub Pages, no fra
 | `images/` | Screenshots used on pages |
 | `style.css` | All styling (dark, light, print) |
 | `build-publications.py` | Rewrites the Published block from the Zotero bib export |
+| `build-writing.py`, `writing/` | Renders Markdown posts into pages, `writing.html`, and `feed.xml` (needs pandoc) |
+| `tools/check-site.py` | Pre-commit checks: links, head tags, JSON-LD, XML, banned words |
 | `tools/make-og.py` | One-off generator for `og.png`, the share-card image (needs font files; see its docstring) |
 | `sitemap.xml`, `robots.txt`, `404.html`, `favicon.*`, `apple-touch-icon.png` | Plumbing |
 
@@ -52,4 +54,12 @@ Then rename the page and nav entries to "Talks & Media".
 
 **A screenshot.** Put a JPG/PNG in `images/`, reference it with `<img class="shot" ...>` inside a card.
 
-**Writing.** Not built yet. Planned: Markdown posts in `writing/posts/`, rendered by `build-writing.py` with pandoc into `writing/`, plus `feed.xml`. It gets built together with the first post.
+**A piece of writing.** Write Markdown in `writing/posts/<slug>.md` with this header (a stub is already there):
+
+    ---
+    title: The title
+    date: 2026-10-08
+    summary: One sentence for the index and the feed.
+    ---
+
+Use `##` for headings; images go in `writing/images/` and are referenced as `images/name.jpg`. Add `draft: true` to keep a post unpublished. For a piece published elsewhere (Doximity), add `external: https://...` and `outlet: Doximity Op-Med` instead of a body. Then `./update.sh`: `build-writing.py` renders `writing/<slug>.html`, `writing.html`, `feed.xml`, and refreshes `sitemap.xml`. With no published posts it generates nothing. **When the first post goes live**, also add a Writing link to the topbar on the other pages and swap the landing grid's Contact button for Writing (Contact stays in the footer row).

@@ -183,3 +183,16 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
 .now li { margin: .25rem 0; }
 .open { margin: 1.5rem 0 0; color: var(--ink-2); font-size: .95rem; }
 .card .shot { width: 100%; height: auto; border-radius: .45rem; border: 1px solid var(--rule); margin-top: .2rem; }
+
+/* Writing */
+.posts { list-style: none; margin: 0; padding: 0; }
+.posts li { display: grid; grid-template-columns: 7rem 1fr; gap: .5rem 1.2rem; padding: .9rem 0; border-bottom: 1px solid var(--rule); }
+.posts .when { font-family: var(--mono); font-size: .8rem; color: var(--ink-3); padding-top: .2rem; }
+.posts a { font-family: var(--head); font-weight: 600; font-size: 1.05rem; }
+.posts p { margin: .25rem 0 0; }
+@media (max-width: 560px) { .posts li { grid-template-columns: 1fr; gap: .1rem; } }
+.post article { max-width: 42rem; font-size: 1.04rem; line-height: 1.7; }
+.post article h2 { margin-top: 2rem; }
+.post article img { max-width: 100%; height: auto; border-radius: .5rem; border: 1px solid var(--rule); }
+.post article blockquote { border-left: 3px solid var(--accent); margin: 1rem 0; padding: .2rem 1rem; color: var(--ink-2); }
+.post article pre { overflow-x: auto; padding: .8rem 1rem; border: 1px solid var(--rule); border-radius: .5rem; background: var(--surface); }

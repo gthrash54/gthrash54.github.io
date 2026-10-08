@@ -3,7 +3,7 @@
 import json, re, sys, subprocess, pathlib
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 bad = 0
-pages = sorted(ROOT.glob("*.html")) + sorted((ROOT / "writing").glob("*.html"))
+pages = sorted(ROOT.glob("*.html")) + sorted(p for p in (ROOT / "writing").glob("*.html") if not p.name.endswith(".template.html"))
 for p in pages:
     s = p.read_text()
     for m in re.finditer(r'(?:href|src)="([^"#]+)(?:#[^"]*)?"', s):
