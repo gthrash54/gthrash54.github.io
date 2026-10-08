@@ -11,7 +11,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path(__file__).resolve().parent.parent
 NAME = "Garrett W. Thrash"
-TAGLINE = "Teaching brain implants to listen."
+TAGLINE = "Designing the next generation\nof brain-machine interfaces."
 STATUS = "MD Candidate (Class of 2027)\nIncoming PhD Student, Neuroengineering (2027)\nUniversity of Alabama at Birmingham"
 URL = "garrettthrash.com"
 BG, INK, INK2, ACCENT, ACCENT2 = "#0a0f1c", "#e9eef8", "#aab4c8", "#46d3c2", "#f2b352"
@@ -66,9 +66,9 @@ def main():
     f_stat = find_font(font_dir, "Inter", 400, 23)
     f_url = find_font(font_dir, "Inter", 500, 24)
     d.text((x0, 150), NAME, font=f_name, fill=INK)
-    d.text((x0, 240), TAGLINE, font=f_tag, fill=ACCENT)
-    d.multiline_text((x0, 318), STATUS, font=f_stat, fill=INK2, spacing=10)
-    d.text((x0, 455), URL, font=f_url, fill=ACCENT2)
+    d.multiline_text((x0, 236), TAGLINE, font=f_tag, fill=ACCENT, spacing=8) if TAGLINE else None
+    d.multiline_text((x0, 350 if TAGLINE else 250), STATUS, font=f_stat, fill=INK2, spacing=10)
+    d.text((x0, 480 if TAGLINE else 390), URL, font=f_url, fill=ACCENT2)
     out = ROOT / "og.png"
     im.save(out, optimize=True)
     print(f"wrote {out} {im.size}")
