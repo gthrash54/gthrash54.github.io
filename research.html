@@ -39,7 +39,7 @@
 <main class="wrap">
 <div class="page-title">
   <h1>Research &amp; Projects</h1>
-  <p>What I am working on now, the tools I build to do it, and the work that led here.</p>
+  <p>What I am working on now, the tools I direct AI agents to build for it, and the work that led here.</p>
 </div>
 
 <section id="about">
@@ -69,23 +69,26 @@
 </section>
 
 <section id="tools">
-  <h2>Tools I build</h2>
+  <h2>Tools built with AI coding agents</h2>
+  <p class="lede">The tools in this section were written by AI coding agents working from my specifications. I decide what they need to do, review what comes back, and use them on real recordings; the agents write the code. I say so here because the distinction matters.</p>
   <ul class="cards">
     <li class="card">
-      <span class="status">Open source · MIT · active</span>
+      <span class="status">Open source · MIT · AI-built, directed by me</span>
       <h3>AnalyzeLFPs</h3>
+      <img class="shot" src="images/analyzelfps-result.jpg" alt="AnalyzeLFPs result view showing a completed spectral analysis" width="1200" height="844" loading="lazy">
+      <span class="muted">UI preview from the ui-polish branch.</span>
       <p>A desktop-hosted web app for intraoperative DBS and ECoG recordings. It reads TDT, BrainVision, and EDF data through one reader, describes each recording in a hand-curated manifest, gates every analysis behind a signed human QC review, and runs recipes for spectra, band-power contrasts with permutation tests, time-frequency, phase-amplitude coupling, event-locked averages, and ERNA. Thirteen guardrails check each run before anything is computed. Nothing leaves the machine.</p>
       <p>It ships with a 46-lesson graduate-level curriculum on the mathematics behind the analysis, from linear algebra and DSP to spike sorting and directional leads, as paired student and solution notebooks.</p>
       <div class="links"><a href="https://github.com/gthrash54/AnalyzeLFPs#start-here" target="_blank" rel="noopener">Start here</a><a href="https://github.com/gthrash54/AnalyzeLFPs#ten-minutes-no-recordings-needed" target="_blank" rel="noopener">Try it in 10 min</a><a href="https://github.com/gthrash54/AnalyzeLFPs/blob/public/curriculum/README.md" target="_blank" rel="noopener">Curriculum</a><a href="https://github.com/gthrash54/AnalyzeLFPs#documentation" target="_blank" rel="noopener">Docs</a></div>
     </li>
     <li class="card">
-      <span class="status">Pipeline · in use</span>
+      <span class="status">Pipeline · in use · AI-built, directed by me</span>
       <h3>DBS recording inventory and derivatives</h3>
       <p>A staging toolchain for a multi-case intraoperative dataset: verifies every raw file is readable, builds an inventory of leads, contacts, and streams per case, derives condition labels and task states, computes audio coherence and video motion traces for behavioral alignment, and writes de-identified derivatives to a separate store. Raw data and the identity crosswalk never leave the acquisition machine.</p>
       <div class="links"><span class="muted">Python · private data, code on request</span></div>
     </li>
     <li class="card">
-      <span class="status">Pipeline · in use</span>
+      <span class="status">Pipeline · in use · AI-built, directed by me</span>
       <h3>AI-assisted evidence screening</h3>
       <p>A hybrid title-and-abstract screening pipeline for large systematic and scoping reviews. A language model votes on every record with a confidence and exclusion code; high-confidence exclusions are removed only after both human reviewers validate a random sample against a pre-declared error threshold; the model then acts as second reviewer on the retained set, with humans deciding every disagreement. Follows the 2025 Cochrane/Campbell/JBI/CEE position statement and RAISE recommendations.</p>
       <div class="links"><span class="muted">Python · Anthropic API · Covidence</span></div>
