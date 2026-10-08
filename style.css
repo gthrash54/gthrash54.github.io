@@ -96,7 +96,7 @@ section { padding-top: 2.5rem; }
 /* ---------- Top bar ---------- */
 .topbar { position: sticky; top: 0; z-index: 10; background: rgba(10,15,28,.8); backdrop-filter: blur(10px); border-bottom: 1px solid var(--rule); }
 .topbar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: .6rem; }
-.topbar .brand { font-family: var(--head); font-weight: 600; font-size: 1.02rem; color: var(--ink); border: 0; display: flex; align-items: center; gap: .6rem; }
+.topbar .brand { font-family: var(--head); font-weight: 600; font-size: 1.02rem; color: var(--ink); border: 0; display: flex; align-items: center; gap: .6rem; white-space: nowrap; }
 .topbar .brand img { width: 1.8rem; height: 1.8rem; border-radius: 50%; object-fit: cover; border: 1px solid var(--accent); }
 .topbar ul { display: flex; gap: .15rem; list-style: none; margin: 0; padding: 0; flex-wrap: wrap; justify-content: flex-end; }
 .topbar ul a { display: block; padding: .4rem .6rem; font-family: var(--mono); font-size: .8rem; letter-spacing: .02em; color: var(--ink-2); border-radius: .35rem; border-bottom: 0; }
@@ -169,3 +169,8 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
   .pubs .ids a { color: #444; }
   main { padding-bottom: 0; }
 }
+
+/* Embedded talk videos (youtube-nocookie iframes); see README for the snippet */
+.video { position: relative; width: 100%; aspect-ratio: 16 / 9; border: 1px solid var(--rule); border-radius: .6rem; overflow: hidden; background: #000; margin: .6rem 0 .4rem; }
+.video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); gap: 1.25rem; }
