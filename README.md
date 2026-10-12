@@ -30,7 +30,6 @@ It regenerates the Published list, copies the latest CV PDF from Dropbox, commit
 
 - **Status wording.** "MD Candidate (Class of 2027) · Incoming PhD Student, Neuroengineering (2027)". Not physician, engineer, clinician, or founder.
 - **AI-built software is labelled.** AnalyzeLFPs, the curriculum, and the pipelines were coded by AI agents from Garrett's specifications. Every mention says so ("designed by me, coded by AI agents" / "AI-built, directed by me").
-- **Nothing about the device concept.** Only the one "Now" bullet on the landing page. The Ventures page draft lives outside this repo at `~/Dropbox/Start-up/Plans/site-ventures.html` and is published only after HIIE sign-off. Keep commit messages free of device details too.
 - **No patient-level data**, in figures or anywhere else.
 - **When a paper publishes**, remove it from the hand-maintained in-press/under-review lists; the bib export will add it to Published.
 
