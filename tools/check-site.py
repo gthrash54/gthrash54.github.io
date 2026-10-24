@@ -18,7 +18,7 @@ for p in pages:
     for m in re.finditer(r'<script type="application/ld\+json">(.*?)</script>', s, re.S):
         try: json.loads(m.group(1))
         except Exception as e: print(f"JSONLD {p.name}: {e}"); bad += 1
-    for w in ("physician", "stealth", "pre-seed", "Tools I build", "hidden>", "direct AI"):
+    for w in ("physician", "stealth", "pre-seed", "Tools I build", "hidden>", "direct AI", "AnalyzeLFPs", "analyzelfps"):
         if w in s: print(f"WORD {p.name}: {w!r}"); bad += 1
 json.load(open(ROOT / "figures/figures.json"))
 for x in ("sitemap.xml", "feed.xml"):
