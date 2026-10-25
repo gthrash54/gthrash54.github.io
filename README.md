@@ -8,7 +8,7 @@ Garrett Thrash's personal site. Plain HTML + CSS, hosted on GitHub Pages, no fra
 | `research.html` | Research & Projects: Walker Lab, interactive figures, tools built with AI agents, experience |
 | `publications.html` | Peer-reviewed list (generated), in-press, under review, posters |
 | `talks.html` | Talks & Teaching: invited lectures, oral presentations, teaching, speaker bios and headshot |
-| `cv.pdf` | Copy of `~/Dropbox/CV/CV_GWT.pdf` (refreshed by `update.sh`) |
+| `cv.pdf` | Copy of `~/Dropbox/CV/Thrash_Garrett_CV.pdf` (refreshed by `update.sh`) |
 | `figures/` | Interactive figures for the Research page; see `figures/README.md` |
 | `style.css` | All styling (dark, light, print) |
 | `build-publications.py` | Rewrites the Published block from the Zotero bib export |

@@ -8,7 +8,7 @@ the Zotero collection "thrash_publications" (the same file the LaTeX CV uses).
 Only the block between the AUTO-PUBLISHED markers is rewritten; the in-press,
 under-review and presentation lists stay hand-maintained.
 
-Rules mirror CV_GWT.tex: drop "Correction to:" errata, newest first,
+Rules mirror Thrash_Garrett_CV.tex: drop "Correction to:" errata, newest first,
 names as "Thrash GW", the CV owner in bold. Author lists longer than
 MAX_AUTHORS are shortened to the first three, the CV owner, and "et al."
 

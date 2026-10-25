@@ -5,7 +5,7 @@ cd "$(dirname "$0")"
 # Regenerate the peer-reviewed list from the Zotero-exported bib (same source as the LaTeX CV).
 ./build-publications.py
 ./build-writing.py
-if [ -f "$HOME/Dropbox/CV/CV_GWT.pdf" ]; then cp "$HOME/Dropbox/CV/CV_GWT.pdf" cv.pdf; fi
+if [ -f "$HOME/Dropbox/CV/Thrash_Garrett_CV.pdf" ]; then cp "$HOME/Dropbox/CV/Thrash_Garrett_CV.pdf" cv.pdf; fi
 # Warn when the landing page's "Now" strip is older than 90 days.
 if now_line=$(grep -o 'Now · [A-Za-z]* [0-9]\{4\}' index.html | head -1); then
   now_ts=$(date -d "1 ${now_line#Now · }" +%s 2>/dev/null || echo 0)
