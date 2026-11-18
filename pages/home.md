@@ -25,6 +25,13 @@ Walker Lab, UAB Neurology\
 :::
 
 ::: entry
+2024 – present
+
+**[Global neurosurgery and equitable care](/research/#equity)**\
+Global Neurosurgery Research Group, Mission:Brain Foundation
+:::
+
+::: entry
 2023 – present
 
 **[Neuromodulation for restless legs syndrome and hypertension](/research/#neuromodulation)**\
@@ -32,10 +39,17 @@ Holland Clinical Research Lab, UAB Neurosurgery
 :::
 
 ::: entry
-2024 – present
+2022 – 2023
 
-**[Global neurosurgery and equitable care](/research/#equity)**\
-Global Neurosurgery Research Group, Mission:Brain Foundation
+**[Ultraviolet B-induced immune suppression](/about/#experience)**\
+Immunology Research, UAB
+:::
+
+::: entry
+2021 – 2022
+
+**[Expression and kinetics of novel enzymes](/about/#experience)**\
+Enzyme Kinetics Research, Birmingham-Southern College
 :::
 
 ## Selected Publications
