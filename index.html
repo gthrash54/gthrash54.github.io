@@ -3,26 +3,27 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Garrett Thrash</title>
-<meta name="description" content="Garrett Thrash: MD candidate (Class of 2027) and incoming PhD student in Neuroengineering (2027) at UAB, doing research in the Walker Lab. Deep brain stimulation, neural decoding, brain-computer interfaces, open-source analysis tools, and equitable neurological care.">
+<title>Garrett W. Thrash</title>
+<meta name="description" content="Garrett W. Thrash, M.D. candidate (Class of 2027) and incoming Ph.D. student in Neuroengineering at the University of Alabama at Birmingham. Deep brain stimulation, intracranial recordings, evoked resonant neural activity (ERNA), neuromodulation, and equitable access to neurological care.">
 <link rel="canonical" href="https://garrettthrash.com/">
 <meta property="og:type" content="profile">
-<meta property="og:title" content="Garrett Thrash">
-<meta property="og:description" content="MD Candidate (Class of 2027) · Incoming PhD Student, Neuroengineering · University of Alabama at Birmingham. Decoding intracranial LFPs for adaptive deep brain stimulation.">
+<meta property="og:title" content="Garrett W. Thrash">
+<meta property="og:description" content="Garrett W. Thrash, M.D. candidate (Class of 2027) and incoming Ph.D. student in Neuroengineering at the University of Alabama at Birmingham. Deep brain stimulation, intracranial recordings, evoked resonant neural activity (ERNA), neuromodulation, and equitable access to neurological care.">
 <meta property="og:url" content="https://garrettthrash.com/">
 <meta property="og:image" content="https://garrettthrash.com/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Garrett W. Thrash: designing the next generation of brain-machine interfaces.">
+<meta property="og:image:alt" content="Garrett W. Thrash, M.D. Candidate and incoming Ph.D. Student in Neuroengineering, University of Alabama at Birmingham">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#0a0f1c">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#121211" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&amp;display=swap">
+<link rel="stylesheet" href="/style.css?v=ddce7325">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -31,111 +32,82 @@
   "url": "https://garrettthrash.com/",
   "image": "https://garrettthrash.com/headshot.jpg",
   "email": "mailto:gthrash@uab.edu",
-  "jobTitle": "MD Candidate; Incoming PhD Student, Neuroengineering",
-  "affiliation": { "@type": "CollegeOrUniversity", "name": "University of Alabama at Birmingham" },
-  "alumniOf": { "@type": "CollegeOrUniversity", "name": "Birmingham-Southern College" },
-  "sameAs": ["https://github.com/gthrash54", "https://www.linkedin.com/in/garrett-thrash-311709430/", "https://orcid.org/0009-0008-1061-8679", "https://scholar.google.com/citations?user=FJ4ulF4AAAAJ", "https://pubmed.ncbi.nlm.nih.gov/?term=Thrash+GW%5BAuthor%5D&sort=pubdate"]
+  "jobTitle": "M.D. Candidate; Incoming Ph.D. Student, Neuroengineering",
+  "affiliation": {
+    "@type": "CollegeOrUniversity",
+    "name": "University of Alabama at Birmingham"
+  },
+  "alumniOf": {
+    "@type": "CollegeOrUniversity",
+    "name": "Birmingham-Southern College"
+  },
+  "sameAs": [
+    "https://github.com/gthrash54",
+    "https://www.linkedin.com/in/garrett-thrash-311709430/",
+    "https://orcid.org/0009-0008-1061-8679",
+    "https://scholar.google.com/citations?user=FJ4ulF4AAAAJ",
+    "https://pubmed.ncbi.nlm.nih.gov/?term=Thrash+GW%5BAuthor%5D&sort=pubdate"
+  ]
 }
 </script>
 </head>
 <body>
-
-<main class="landing">
-  <canvas id="lfp" aria-hidden="true"></canvas>
-  <div class="wrap">
-    <div class="portrait-wrap" aria-hidden="false">
-      <svg class="lead-ring" viewBox="0 0 200 200" aria-hidden="true">
-        <circle cx="100" cy="100" r="94" fill="none" stroke="rgba(70,211,194,.18)" stroke-width="1"/>
-        <g fill="none" stroke="#46d3c2" stroke-width="3.5" stroke-linecap="round" transform="rotate(-90 100 100)">
-          <circle class="seg" cx="100" cy="100" r="94" stroke-dasharray="65 8" pathLength="292"/>
-        </g>
-        <g fill="none" stroke="#f2b352" stroke-width="3.5" stroke-linecap="round" transform="rotate(-90 100 100)">
-          <circle class="seg active" cx="100" cy="100" r="94" stroke-dasharray="18 274" pathLength="292"/>
-        </g>
-        <g class="ticks" stroke="rgba(233,238,248,.35)" stroke-width="1">
-          <path d="M100 2v6M100 192v6M2 100h6M192 100h6"/>
-        </g>
-      </svg>
-      <img class="portrait" src="headshot.jpg" alt="Garrett Thrash with his son on his shoulders" width="200" height="200">
-    </div>
-    <p class="eyebrow">Neuroengineering · Neurology · Birmingham, AL</p>
-    <h1>Garrett W. Thrash</h1>
-    <p class="mission">Designing the next generation of brain-machine interfaces.</p>
-    <p class="tagline">MD Candidate (Class of 2027) · Incoming PhD Student, Neuroengineering (2027)<br>University of Alabama at Birmingham</p>
-    <p class="intro">I decode intracranial local field potentials (LFPs) for adaptive deep brain stimulation and study equitable access to neurological care.</p>
-    <ul class="readout" aria-label="Focus areas">
-      <li>adaptive DBS</li><li>neural decoding</li><li>BCI</li>
-    </ul>
-
-    <ul class="buttons">
-      <li><a class="btn primary" href="cv.pdf" target="_blank" rel="noopener"><span class="lbl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l5 5v13H6z"/><path d="M15 3v5h5M9 13h6M9 17h6"/></svg>Curriculum Vitae</span><small>PDF</small></a></li>
-      <li><a class="btn" href="research.html"><span class="lbl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h3l3-7 4 14 3-7h5"/></svg>Research &amp; Projects</span></a></li>
-      <li><a class="btn" href="publications.html"><span class="lbl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V5h9l3 3v11z"/><path d="M8 10h6M8 14h6"/></svg>Publications</span></a></li>
-      <li><a class="btn" href="talks.html"><span class="lbl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H4z"/><path d="M12 16v4M8 20h8M8 9h8M8 12h5"/></svg>Talks &amp; Teaching</span></a></li>
-      <li><a class="btn" href="https://www.linkedin.com/in/garrett-thrash-311709430/" target="_blank" rel="noopener"><span class="lbl"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 10v7M8 7v.5M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/></svg>LinkedIn</span></a></li>
-      <li><a class="btn" href="mailto:gthrash@uab.edu"><span class="lbl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg>Contact</span></a></li>
-    </ul>
-
-    <section class="now" aria-labelledby="now-h">
-      <p class="eyebrow" id="now-h">Now · October 2026</p>
-      <ul>
-        <li>Research in the Walker Lab: decoding intracranial LFPs recorded during DBS surgery.</li>
-        <li>Writing the first essays for the 2026–27 Doximity Op-Med Fellowship.</li>
-        <li>Developing a device concept for recording from deep brain targets (concept stage). Interested? <a href="mailto:gthrash@uab.edu?subject=Neurotechnology">Email me</a>.</li>
-      </ul>
-    </section>
-
-    <p class="open">Open to research collaborations, speaking, and conversations with people building neurotechnology.</p>
-
-    <footer>
-      <div class="wrap">
-        <span><a href="mailto:gthrash@uab.edu">gthrash@uab.edu</a></span>
-        <span><a href="https://www.linkedin.com/in/garrett-thrash-311709430/" rel="me">LinkedIn</a></span>
-        <span><a href="https://scholar.google.com/citations?user=FJ4ulF4AAAAJ" rel="me">Google Scholar</a></span>
-        <span><a href="https://orcid.org/0009-0008-1061-8679" rel="me">ORCID</a></span>
-        <span><a href="https://github.com/gthrash54" rel="me">GitHub</a></span>
-      </div>
-    </footer>
+<header class="letterhead">
+  <div class="wrap bar">
+    <a class="brand" href="/"><svg class="lead" viewBox="0 0 10 30" aria-hidden="true"><path d="M3 0V25.5a2 2 0 0 0 4 0V0" fill="none" stroke="currentColor" stroke-width="1"/><rect x="3" y="9" width="4" height="2.6" fill="currentColor"/><rect x="3" y="13.4" width="4" height="2.6" fill="currentColor"/><rect class="on" x="3" y="17.8" width="4" height="2.6"/><rect x="3" y="22.2" width="4" height="2.6" fill="currentColor"/></svg>Garrett W. Thrash</a>
+    <nav class="site-nav" aria-label="Site">
+      <a href="/research/">Research</a>
+      <a href="/about/">About &amp; CV</a>
+      <a href="/cv.pdf">CV (PDF)</a>
+    </nav>
   </div>
-</main>
+</header>
+<main class="wrap">
+<header class="cv-head">
+<h1>
+Garrett W. Thrash
+</h1>
+<p>
+M.D. Candidate (c/o 2027) • Incoming Ph.D. Student, Neuroengineering (2027)
+</p>
+<p>
+University of Alabama at Birmingham Heersink School of Medicine
+</p>
+<p class="contact">
+<a href="mailto:gthrash@uab.edu">gthrash@uab.edu</a> • <a href="https://scholar.google.com/citations?user=FJ4ulF4AAAAJ" rel="me">Google Scholar</a> • <a href="https://orcid.org/0009-0008-1061-8679" rel="me">ORCID</a> • <a href="https://github.com/gthrash54" rel="me">GitHub</a> • <a href="https://www.linkedin.com/in/garrett-thrash-311709430/" rel="me">LinkedIn</a>
+</p>
+</header>
+<p>I am a fourth-year medical student at the UAB Heersink School of Medicine and an incoming Ph.D. student in Neuroengineering at the University of Alabama at Birmingham. In Dr. Harrison Walker’s lab I work on decoding subthalamic nucleus recordings, including evoked resonant neural activity (ERNA), for adaptive deep brain stimulation. My published work is in neuromodulation for restless legs syndrome, neurosurgical outcomes, and equitable access to neurological care.</p>
+<h2 id="research">Research</h2>
+<div class="entry">
+<p>2026 – present</p>
+<p><strong><a href="/research/#adaptive-dbs">Intracranial recordings and adaptive deep brain stimulation</a></strong><br />
+Walker Lab, UAB Neurology<br />
+<em>Planned dissertation laboratory</em></p>
+</div>
+<div class="entry">
+<p>2023 – present</p>
+<p><strong><a href="/research/#neuromodulation">Neuromodulation for restless legs syndrome and hypertension</a></strong><br />
+Holland Clinical Research Lab, UAB Neurosurgery</p>
+</div>
+<div class="entry">
+<p>2024 – present</p>
+<p><strong><a href="/research/#equity">Global neurosurgery and equitable care</a></strong><br />
+Global Neurosurgery Research Group, Mission:Brain Foundation</p>
+</div>
+<h2 id="selected-publications">Selected Publications</h2>
+<div class="entry ref"><p>2026</p><p><strong>Thrash GW</strong>, Stacey GK, Wang E, Razi R, Townsend C, Brockington D, Holland MT. <span class="t">Therapeutic Deep Brain Stimulation for Restless Legs Syndrome: A Systematic Review and Meta-Analysis.</span> <em>Neuromodulation: Technology at the Neural Interface</em>. <span class="ids"><a href="https://doi.org/10.1016/j.neurom.2026.08.008">doi</a></span></p></div>
+<div class="entry ref"><p>2026</p><p><strong>Thrash GW</strong>, Wang E, Brockington D, Rives C, Sun Y, Roberts AC, Das S, Pilitsis JG, Shirvalkar P, do Campo RV, Walker HC, Earley CJ, Holland MT. <span class="t">Neuromodulation for Restless Legs Syndrome: A Systematic Review and Mechanistic Considerations for Spinal Cord Stimulation.</span> <em>Sleep and Breathing</em> 30(1). <span class="ids"><a href="https://doi.org/10.1007/s11325-026-03638-7">doi</a><a href="https://pubmed.ncbi.nlm.nih.gov/41806217/">pubmed</a></span></p></div>
+<div class="entry ref"><p>2024</p><p><strong>Thrash GW</strong>, Wang E, Sun Y, Walker HC, Shirvalkar P, Becker BK, Holland MT. <span class="t">Clinical Trials in Neuromodulatory Treatment of Drug-Resistant Hypertension and the Need for Spinal Cord Stimulation Trials: A PRISMA Systematic Review.</span> <em>Bioelectronic Medicine</em> 10(1):28. <span class="ids"><a href="https://doi.org/10.1186/s42234-024-00160-7">doi</a><a href="https://pubmed.ncbi.nlm.nih.gov/39617923/">pubmed</a></span></p></div>
+<p><a href="/publications/">All publications</a></p>
 
-<script>
-// Background: a drifting neural network with pulses travelling along links, and multichannel LFP-like traces
-// along the bottom. All synthetic; no patient data.
-(() => {
-  const cv = document.getElementById('lfp'); const ctx = cv.getContext('2d');
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let W, H, dpr, t = 0, nodes = [], pulses = [];
-  const N = 46, R = 150;
-  function resize() {
-    dpr = Math.min(devicePixelRatio || 1, 2); W = cv.clientWidth; H = cv.clientHeight; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    nodes = Array.from({length: N}, () => ({x: Math.random() * W, y: Math.random() * H * 0.78, vx: (Math.random() - .5) * .18, vy: (Math.random() - .5) * .18, r: 1.2 + Math.random() * 1.8, ph: Math.random() * 6.28}));
-  }
-  const CH = 5, chans = Array.from({length: CH}, (_, i) => ({seed: i * 1.7 + .3, f: [4 + i * .6, 12 + i * 1.3, 20 + (i % 3) * 1.5, 62 + i * 3], a: [.9, .45, .8, .18], ph: [i * .9, i * 2.1, i * .4, i * 1.3]}));
-  function sig(c, x) { let v = 0; for (let k = 0; k < 4; k++) { const burst = k === 2 ? .5 + .5 * Math.sin(x * .7 + c.seed) : 1; v += c.a[k] * burst * Math.sin(2 * Math.PI * c.f[k] * x * .25 + c.ph[k]); } return v + .35 * Math.sin(x * 37.1 + c.seed) * Math.sin(x * 11.3 + 2 * c.seed); }
-  function step() {
-    for (const n of nodes) { n.x += n.vx; n.y += n.vy; if (n.x < 0 || n.x > W) n.vx *= -1; if (n.y < 0 || n.y > H * .78) n.vy *= -1; }
-    if (Math.random() < .06 && pulses.length < 14) { const a = nodes[(Math.random() * N) | 0]; let best = null, bd = R * R; for (const b of nodes) { if (b === a) continue; const d = (a.x - b.x) ** 2 + (a.y - b.y) ** 2; if (d < bd && Math.random() < .5) { bd = d; best = b; } } if (best) pulses.push({a, b: best, p: 0}); }
-    for (const p of pulses) p.p += .022; pulses = pulses.filter(p => p.p < 1);
-  }
-  function draw() {
-    ctx.clearRect(0, 0, W, H);
-    // links
-    for (let i = 0; i < N; i++) for (let j = i + 1; j < N; j++) { const a = nodes[i], b = nodes[j]; const d = Math.hypot(a.x - b.x, a.y - b.y); if (d < R) { ctx.strokeStyle = `rgba(70,211,194,${(1 - d / R) * .28})`; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); } }
-    // nodes
-    for (const n of nodes) { const g = .55 + .45 * Math.sin(t * 2 + n.ph); ctx.fillStyle = `rgba(70,211,194,${.35 + .45 * g})`; ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, 6.283); ctx.fill(); }
-    // pulses
-    for (const p of pulses) { const x = p.a.x + (p.b.x - p.a.x) * p.p, y = p.a.y + (p.b.y - p.a.y) * p.p; const g = ctx.createRadialGradient(x, y, 0, x, y, 9); g.addColorStop(0, 'rgba(242,179,82,.95)'); g.addColorStop(1, 'rgba(242,179,82,0)'); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, 9, 0, 6.283); ctx.fill(); }
-    // traces along the bottom
-    const top = H * .80, gap = (H - top) / (CH + 1), amp = Math.min(gap * .45, 16), px = 2;
-    for (let i = 0; i < CH; i++) { const c = chans[i], y0 = top + gap * (i + 1); ctx.strokeStyle = i === 2 ? 'rgba(242,179,82,.55)' : 'rgba(70,211,194,.45)'; ctx.lineWidth = 1.1; ctx.beginPath(); for (let x = 0; x <= W; x += px) { const y = y0 - amp * sig(c, x / 60 + t); x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y); } ctx.stroke(); }
-    // sweep cursor
-    const sx = (t * 90) % (W + 40) - 20; ctx.strokeStyle = 'rgba(233,238,248,.10)'; ctx.beginPath(); ctx.moveTo(sx, top); ctx.lineTo(sx, H); ctx.stroke();
-  }
-  function loop() { t += .012; step(); draw(); requestAnimationFrame(loop); }
-  addEventListener('resize', () => { resize(); draw(); }, {passive: true});
-  resize(); draw(); if (!reduce) requestAnimationFrame(loop);
-})();
-</script>
+</main>
+<footer class="colophon">
+  <div class="wrap">
+    <svg class="orn" viewBox="0 0 72 8" aria-hidden="true"><path d="M0 2.5H66.5a1.5 1.5 0 0 1 0 3H0" fill="none" stroke="currentColor" stroke-width=".8"/><rect x="42" y="2.5" width="3.2" height="3" fill="currentColor"/><rect x="48" y="2.5" width="3.2" height="3" fill="currentColor"/><rect class="on" x="54" y="2.5" width="3.2" height="3"/><rect x="60" y="2.5" width="3.2" height="3" fill="currentColor"/></svg>
+    <p><a href="mailto:gthrash@uab.edu">gthrash@uab.edu</a> • <a href="https://scholar.google.com/citations?user=FJ4ulF4AAAAJ" rel="me">Google Scholar</a> • <a href="https://orcid.org/0009-0008-1061-8679" rel="me">ORCID</a> • <a href="https://github.com/gthrash54" rel="me">GitHub</a> • <a href="https://www.linkedin.com/in/garrett-thrash-311709430/" rel="me">LinkedIn</a></p>
+    <p class="fine">© 2026 Garrett W. Thrash • Set in EB Garamond • Built with pandoc</p>
+  </div>
+</footer>
 </body>
 </html>

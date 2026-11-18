@@ -6,7 +6,7 @@ draft: true
 ---
 
 <!-- DRAFT STUB. Replace this with your own text. Delete "draft: true" above to publish.
-     Use ## for headings. Put images in writing/images/ and reference them as images/name.jpg. -->
+     Use ## for headings. Put images in writing/images/ and reference them as /writing/images/name.jpg. -->
 
 ## The short version
 
