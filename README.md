@@ -1,63 +1,69 @@
 # garrettthrash.com
 
-Garrett Thrash's personal site. Plain HTML + CSS, hosted on GitHub Pages, no framework. Two small Python builders keep generated parts current.
+Garrett Thrash's site. Markdown sources rendered by pandoc and one Python script into plain HTML, hosted on GitHub Pages. The design follows the CV: EB Garamond, small-caps headings, a date column, black on white with a deep green accent, dark mode from the system setting.
 
-| File | What it is |
+## Working on the site
+
+    ./preview.sh        # build, check, and serve at http://localhost:8000 (Ctrl+C to stop)
+    ./build.sh          # build and check only
+
+Neither script runs git. When the preview looks right:
+
+    git status                    # see what changed
+    git diff                      # read it
+    git add -A
+    git commit                    # your message
+    git push
+
+GitHub Pages publishes `main` about a minute after a push.
+
+## Files
+
+| Path | What it is |
 | --- | --- |
-| `index.html` | Landing page: tagline, status line, buttons, the dated "Now" strip, footer links |
-| `research.html` | Research & Projects: Walker Lab, interactive figures, tools built with AI agents, experience |
-| `publications.html` | Peer-reviewed list (generated), in-press, under review, posters |
-| `talks.html` | Talks & Teaching: invited lectures, oral presentations, teaching, speaker bios and headshot |
-| `cv.pdf` | Copy of `~/Dropbox/CV/Thrash_Garrett_CV.pdf` (refreshed by `update.sh`) |
-| `figures/` | Interactive figures for the Research page; see `figures/README.md` |
-| `style.css` | All styling (dark, light, print) |
-| `build-publications.py` | Rewrites the Published block from the Zotero bib export |
-| `build-writing.py`, `writing/` | Renders Markdown posts into pages, `writing.html`, and `feed.xml` (needs pandoc) |
-| `tools/check-site.py` | Pre-commit checks: links, head tags, JSON-LD, XML, banned words |
-| `tools/make-og.py` | One-off generator for `og.png`, the share-card image (needs font files; see its docstring) |
-| `sitemap.xml`, `robots.txt`, `404.html`, `favicon.*`, `apple-touch-icon.png` | Plumbing |
+| `pages/*.md` | Page sources. `home.md` becomes `index.html`; `research.md` becomes `research/index.html`, and so on |
+| `pages/projects/*.md` | One page per project, at `/projects/<name>/` |
+| `writing/posts/*.md` | Essays; nothing is published until a post drops `draft: true` |
+| `templates/base.html` | The one header, navigation and footer every page shares |
+| `style.css` | All styling: light, dark, print |
+| `build.py` | Renders everything; its docstring lists the front matter and tokens pages can use |
+| `build.sh`, `preview.sh` | Tests, build, site check; preview also serves the site locally |
+| `site.json` | Where the bibliography and CV PDF live outside the repo |
+| `tests/` | Unit tests for `build.py` and the checker (`python3 -m unittest discover -s tests`) |
+| `tools/check-site.py` | Broken links and anchors, head tags, banned words, British spellings, em dashes |
+| `tools/og-card.html`, `tools/make-og.sh` | Source and renderer for `og.png`, the link-preview image |
+| `build-manifest.txt` | Files the last build generated, so stale ones get removed |
 
-## Publishing changes
-
-From this folder:
-
-    ./update.sh
-
-It regenerates the Published list, copies the latest CV PDF from Dropbox, commits, and pushes. The site updates in about a minute. It warns if the landing page's "Now" strip is more than 90 days old; edit the three bullets and the month in `index.html` when that happens.
+Generated files (`index.html`, `*/index.html`, `sitemap.xml`, the three redirect pages `research.html`, `publications.html`, `talks.html`) are committed because Pages serves the repository as it is. Edit the sources, not these.
 
 ## House rules
 
-- **Status wording.** "MD Candidate (Class of 2027) · Incoming PhD Student, Neuroengineering (2027)". Not physician, engineer, clinician, or founder.
-- **AI-built software is labelled.** The pipelines were coded by AI agents from Garrett's specifications. Every mention says so ("designed by me, coded by AI agents" / "AI-built, directed by me").
+- **Status wording** matches the CV: "M.D. Candidate (c/o 2027) • Incoming Ph.D. Student, Neuroengineering (2027)". Not physician, engineer, clinician or founder. Revisit at formal enrollment in May 2027.
+- **AI-built software is labeled** "AI-built, directed by me".
+- **Nothing interactive goes up unless Garrett designed it.** Planned spots say "Coming soon."
 - **No patient-level data**, in figures or anywhere else.
-- **When a paper publishes**, remove it from the hand-maintained in-press/under-review lists; the bib export will add it to Published.
+- American English; no em dashes. The checker enforces both.
 
-## Adding things
+## Common edits
 
-**A talk video.** Upload to YouTube (unlisted is fine). In `talks.html`, add a `<section id="video">` at the top of `<main>` with one block per video:
+**A paper publishes.** Zotero's Better BibTeX export updates `~/Dropbox/CV/publications.bib`; the next build lists it. Remove it from the In Press or Under Review list in `pages/publications.md`, and add its key to a theme on `pages/research.md` (keys look like `<!-- pubs:keys thrash2026neures ... -->`).
 
-    <h2>Video</h2>
-    <div class="video-grid">
-      <div>
-        <div class="video"><iframe src="https://www.youtube-nocookie.com/embed/VIDEO_ID" title="TALK TITLE" loading="lazy" allow="accelerometer; encrypted-media; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
-        <h3>TALK TITLE</h3>
-        <p class="muted">Venue, Month YYYY · <a href="slides/FILE.pdf">Slides (PDF)</a></p>
-        <p>One-paragraph abstract.</p>
-      </div>
-    </div>
+**The Now section.** Edit the bullets in `pages/about.md` and set `now: YYYY-MM` in its front matter. The build warns when it is more than 90 days old.
 
-Then rename the page and nav entries to "Talks & Media".
+**A project.** Copy `pages/projects/ai-evidence-screening.md`, edit it, and add an entry under Tools in `pages/research.md`.
 
-**A figure.** See `figures/README.md`.
+**An essay.** Write `writing/posts/<slug>.md` with `title`, `date` (YYYY-MM-DD) and `summary` in the front matter; `draft: true` keeps it unpublished. Images go in `writing/images/` and are referenced as `/writing/images/name.jpg`. For a piece published elsewhere, add `external: <url>` and `outlet: <name>` instead of a body. Writing joins the navigation at three published posts.
 
-**A screenshot.** Put a JPG/PNG in `images/`, reference it with `<img class="shot" ...>` inside a card.
+**A CV-style entry** in any page:
 
-**A piece of writing.** Write Markdown in `writing/posts/<slug>.md` with this header (a stub is already there):
+    ::: entry
+    2024 – present
 
-    ---
-    title: The title
-    date: 2026-10-08
-    summary: One sentence for the index and the feed.
-    ---
+    **Title**\
+    Place\
+    *Note*
 
-Use `##` for headings; images go in `writing/images/` and are referenced as `images/name.jpg`. Add `draft: true` to keep a post unpublished. For a piece published elsewhere (Doximity), add `external: https://...` and `outlet: Doximity Op-Med` instead of a body. Then `./update.sh`: `build-writing.py` renders `writing/<slug>.html`, `writing.html`, `feed.xml`, and refreshes `sitemap.xml`. With no published posts it generates nothing. **When the first post goes live**, also add a Writing link to the topbar on the other pages and swap the landing grid's Contact button for Writing (Contact stays in the footer row).
+    - Bullet
+    :::
+
+The first paragraph is the date column; everything after it sits on the right.
