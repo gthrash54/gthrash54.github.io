@@ -45,7 +45,7 @@ Generated files (`index.html`, `*/index.html`, `sitemap.xml`, the three redirect
 ## House rules
 
 - **Status wording** matches the CV: "M.D. Candidate (c/o 2027) • Incoming Ph.D. Student, Neuroengineering (2027)". Not physician, engineer, clinician or founder. Revisit at formal enrollment in May 2027.
-- **AI-built software is labeled** "AI-built, directed by me". Software Garrett wrote with AI coding assistance (clean_dbs, preprocess_dbs) is labeled "Written with AI coding assistance": pages write `{{ai_assisted}}`, and the wording lives once, in `AI_ASSISTED` in `build.py`.
+- **Software AI built end to end is labeled** "AI-built, directed by me". Code Garrett wrote with AI assistance (clean_dbs, preprocess_dbs) gets no label: some AI assistance is assumed in all coding now.
 - **Nothing interactive goes up unless Garrett designed it.** Planned spots say "Coming soon."
 - **No patient-level data**, in figures or anywhere else.
 - American English; no em dashes. The checker enforces both.

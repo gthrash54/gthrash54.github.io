@@ -205,12 +205,6 @@ class TokenTests(unittest.TestCase):
             with self.subTest(token=token), self.assertRaises(build.BuildError):
                 build.expand_tokens(token, self.pubs, {}, "test", {"writing": "", "commonplace": ""})
 
-    def test_ai_assisted_label_has_one_home(self):
-        self.assertEqual(build.AI_ASSISTED, "Written with AI coding assistance")
-        research = (ROOT / "pages" / "research.md").read_text(encoding="utf-8")
-        self.assertEqual(research.count("*{{ai_assisted}}*"), 2)
-        self.assertNotIn(build.AI_ASSISTED, research)
-
 
 class PageTests(unittest.TestCase):
     def test_out_paths(self):

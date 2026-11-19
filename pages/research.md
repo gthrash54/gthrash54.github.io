@@ -49,7 +49,7 @@ Coordinator
 
 **[clean_dbs](https://github.com/gthrash54/clean_dbs)**\
 Walker lab toolbox for loading and cleaning intraoperative DBS recordings\
-*{{ai_assisted}}* • Python
+Python
 :::
 
 ::: entry
@@ -57,7 +57,7 @@ Walker lab toolbox for loading and cleaning intraoperative DBS recordings\
 
 **[preprocess_dbs](https://github.com/gthrash54/preprocess_dbs)**\
 Preprocessing for the Walker lab's intraoperative DBS recordings, built on MNE\
-*{{ai_assisted}}* • Python
+Python
 :::
 
 ::: entry

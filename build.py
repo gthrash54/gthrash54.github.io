@@ -34,8 +34,6 @@ Tokens a page body can use; they are replaced after pandoc renders the page:
                                     the title linked to its DOI (or PubMed), the first author
     {{pub_count}}                   number of peer-reviewed publications
     {{now}}                         the `now:` month spelled out, e.g. "October 2026"
-    {{ai_assisted}}                 the label for software written with AI coding assistance
-                                    (AI_ASSISTED below)
     <!-- writing:recent -->         a Writing section: its heading and the newest HOME_RECENT
     <!-- commonplace:recent -->     posts or entries, or "Coming soon." (Home uses both)
 
@@ -103,9 +101,6 @@ LEAD_AUTHORS = 3
 NOW_MAX_DAYS = 90          # warn when the About page's Now section is older than this
 HOME_RECENT = 3            # newest posts and entries in Home's Writing and Commonplace sections
 WORDS_PER_MINUTE = 230     # reading speed for a post's "N min read"
-# The label on software Garrett wrote with AI coding assistance. Pages use it as {{ai_assisted}},
-# so changing it here changes it everywhere.
-AI_ASSISTED = "Written with AI coding assistance"
 
 JSONLD = {
     "@context": "https://schema.org",
@@ -916,7 +911,7 @@ def build_pages(base: str, pubs: Bib, sections: dict[str, str],
         meta = read_meta(src)
         if src.stem != "404" and not (meta.get("title") and meta.get("description")):
             raise BuildError(f"{where} needs `title` and `description` in its front matter")
-        ctx = {"pub_count": str(len(pubs)), "ai_assisted": AI_ASSISTED}
+        ctx = {"pub_count": str(len(pubs))}
         if meta.get("now"):
             ctx["now"], age = now_label(text_of(meta["now"]), today)
             if age > NOW_MAX_DAYS:
