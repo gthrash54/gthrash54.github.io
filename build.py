@@ -6,32 +6,61 @@ Sources and what they become:
     pages/404.md                -> 404.html
     pages/<name>.md             -> <name>/index.html
     pages/projects/<slug>.md    -> projects/<slug>/index.html
-    writing/posts/<slug>.md     -> writing/<slug>/index.html, writing/index.html, feed.xml
-                                   (nothing is generated until a post drops `draft: true`)
+    writing/posts/<slug>.md     -> writing/index.html, always (each section says "Coming soon." while
+                                   empty); writing/<slug>/index.html for each post hosted here, and
+                                   feed.xml once anything is published (a post with `draft: true`
+                                   is not)
+    commonplace/index.md and    -> commonplace/index.html and commonplace/topics/<topic>/index.html,
+    commonplace/entries/*.md       always; commonplace/<slug>/index.html, commonplace/paths/<slug>/
+                                   index.html and commonplace/feed.xml once entries exist (see
+                                   commonplace.py for the entry format)
 Also generated: redirect pages for the old addresses, sitemap.xml, build-manifest.txt.
+Writing and Commonplace are always in the navigation; their feed links appear in every page's head
+only once they have items.
 
 Page front matter: `title` and `description` (required), `nav` (the current nav item),
 `heading: false` (the page writes its own h1), `jsonld: true` (home only),
-`now: YYYY-MM` (the About page's Now section).
+`now: YYYY-MM` (the About page's Now section), `class: home` (a class on <body>, for styles
+that belong to one page).
+
+Post front matter: `title`, `date` (YYYY-MM-DD) and `summary` (required); `updated: YYYY-MM-DD`;
+`draft: true`; for a piece published elsewhere, `external: <url>` and `outlet: <name>` (both or
+neither) instead of a body.
 
 Tokens a page body can use; they are replaced after pandoc renders the page:
-    <!-- pubs:all -->             every peer-reviewed publication, newest first
-    <!-- pubs:keys k1 k2 ... -->  the listed bib keys, newest first
-    {{pub_count}}                 number of peer-reviewed publications
-    {{now}}                       the `now:` month spelled out, e.g. "October 2026"
+    <!-- pubs:all -->               every peer-reviewed publication, newest first
+    <!-- pubs:keys k1 k2 ... -->    the listed bib keys, newest first
+    <!-- pubs:compact k1 k2 ... --> the listed bib keys as short stacked items: journal and year,
+                                    the title linked to its DOI (or PubMed), the first author
+    {{pub_count}}                   number of peer-reviewed publications
+    {{now}}                         the `now:` month spelled out, e.g. "October 2026"
+    {{ai_assisted}}                 the label for software written with AI coding assistance
+                                    (AI_ASSISTED below)
+    <!-- writing:recent -->         a Writing section: its heading and the newest HOME_RECENT
+    <!-- commonplace:recent -->     posts or entries, or "Coming soon." (Home uses both)
 
 Publications come from the Better BibTeX export named in site.json (the same file the LaTeX CV
 uses). The rules mirror the CV: "Correction to:" errata dropped, newest first, owner in bold.
 
-Usage: python3 build.py        Needs Python 3.9+ and pandoc.
+Usage:
+    python3 build.py              build the site in place (what gets committed), prune files the
+                                  last build made that this one did not, update build-manifest.txt
+    python3 build.py --preview    build everything, drafts included (writing drafts and
+                                  drafts/commonplace/), into drafts/_site, which git ignores.
+                                  Writing and Commonplace show whenever they have anything.
+                                  Never writes into the repository root, never touches the
+                                  manifest, never prunes. preview.sh serves it with tools/serve.py.
+Needs Python 3.10+ and pandoc.
 """
 from __future__ import annotations
 
+import argparse
 import datetime as dt
 import email.utils
 import hashlib
 import html
 import json
+import math
 import re
 import shutil
 import subprocess
@@ -39,6 +68,9 @@ import sys
 import xml.etree.ElementTree as ET
 from dataclasses import dataclass
 from pathlib import Path
+
+import commonplace as cp
+from commonplace import COMING_SOON, long_date
 
 ROOT = Path(__file__).resolve().parent
 SITE = "https://garrettthrash.com"
@@ -48,6 +80,12 @@ POSTS = ROOT / "writing" / "posts"
 TEMPLATES = ROOT / "templates"
 CONFIG = ROOT / "site.json"
 MANIFEST = ROOT / "build-manifest.txt"
+BOOK = ROOT / "commonplace"
+ENTRIES = BOOK / "entries"
+DRAFTS = ROOT / "drafts"
+DRAFT_ENTRIES = DRAFTS / "commonplace"
+DRAFT_POSTS = DRAFTS / "writing"           # unpublished essays live here, outside git
+PREVIEW_OUT = DRAFTS / "_site"
 
 # Old addresses: (new page, {old #section: new address}). Sections not listed go to the new page.
 REDIRECTS = {
@@ -63,7 +101,11 @@ OWNER = "Thrash"           # family name set in bold in author lists
 MAX_AUTHORS = 15           # longer author lists become: first 3, the owner, et al.
 LEAD_AUTHORS = 3
 NOW_MAX_DAYS = 90          # warn when the About page's Now section is older than this
-WRITING_NAV_AT = 3         # Writing joins the navigation at this many published posts
+HOME_RECENT = 3            # newest posts and entries in Home's Writing and Commonplace sections
+WORDS_PER_MINUTE = 230     # reading speed for a post's "N min read"
+# The label on software Garrett wrote with AI coding assistance. Pages use it as {{ai_assisted}},
+# so changing it here changes it everywhere.
+AI_ASSISTED = "Written with AI coding assistance"
 
 JSONLD = {
     "@context": "https://schema.org",
@@ -93,7 +135,7 @@ class BuildError(Exception):
 
 @dataclass(frozen=True)
 class Post:
-    """One piece of writing from writing/posts/."""
+    """One piece of writing from writing/posts/. `external` is set for a piece published elsewhere."""
     path: Path
     slug: str
     title: str
@@ -101,6 +143,22 @@ class Post:
     date: dt.date
     external: str = ""
     outlet: str = ""
+    updated: dt.date | None = None
+    draft: bool = False
+
+    @property
+    def url(self) -> str:
+        """Where the title links: the outlet for a piece published elsewhere, else its page here."""
+        return self.external or f"/writing/{self.slug}/"
+
+
+@dataclass(frozen=True)
+class FeedItem:
+    """One item in an RSS feed."""
+    title: str
+    url: str
+    summary: str
+    date: dt.date
 
 
 # ---------- bib(la)tex parsing (pure) ----------------------------------------------------------
@@ -299,15 +357,25 @@ def fmt_source(entry: dict[str, str]) -> str:
     return out
 
 
-def fmt_ids(entry: dict[str, str]) -> str:
-    """DOI and PubMed links, or an empty string."""
-    links = []
-    if entry.get("doi"):
-        links.append(f'<a href="https://doi.org/{html.escape(plain(entry["doi"]))}">doi</a>')
+def doi_url(entry: dict[str, str]) -> str:
+    """The paper's https://doi.org/ address, or "" when it has no DOI."""
+    return f"https://doi.org/{plain(entry['doi'])}" if entry.get("doi") else ""
+
+
+def pubmed_url(entry: dict[str, str]) -> str:
+    """The paper's PubMed address, or "" when it has no PubMed ID.
+
+    Better BibTeX writes the ID as `eprint` with `eprinttype = {pubmed}`; older exports use `pmid`.
+    """
     pmid = plain(entry["eprint"]) if entry.get("eprinttype", "").lower() == "pubmed" and entry.get("eprint") \
         else plain(entry.get("pmid", ""))
-    if pmid:
-        links.append(f'<a href="https://pubmed.ncbi.nlm.nih.gov/{html.escape(pmid)}/">pubmed</a>')
+    return f"https://pubmed.ncbi.nlm.nih.gov/{pmid}/" if pmid else ""
+
+
+def fmt_ids(entry: dict[str, str]) -> str:
+    """DOI and PubMed links, or an empty string."""
+    links = [f'<a href="{html.escape(url)}">{label}</a>'
+             for url, label in ((doi_url(entry), "doi"), (pubmed_url(entry), "pubmed")) if url]
     return f' <span class="ids">{"".join(links)}</span>' if links else ""
 
 
@@ -321,22 +389,111 @@ def fmt_pub(entry: dict[str, str]) -> str:
             f'{fmt_source(entry)}.{fmt_ids(entry)}</p></div>')
 
 
+def short_authors(field: str) -> str:
+    """The first author, then "et al." when there are more: '<strong>Thrash GW</strong>, et al.'."""
+    names = split_authors(field)
+    if not names:
+        return ""
+    first = fmt_name(*parse_name(names[0]))
+    return f"{first}, et al." if len(names) > 1 else first
+
+
+def fmt_compact(entry: dict[str, str]) -> str:
+    """One paper as a stacked item: "<journal> • <year>", the linked title, then the short author line.
+
+    The title links to the DOI, or to PubMed when there is no DOI, or nowhere when there is neither.
+    A paper without a journal or a year stops the build, since its label line would be wrong.
+    """
+    journal, year = plain(entry.get("journaltitle") or entry.get("journal", "")), pub_date(entry)[0]
+    if not (journal and year):
+        raise BuildError(f"bib {entry['key']}: pubs:compact needs a journal and a year")
+    return card(f"{journal} • {year}", plain(entry.get("title", "")), doi_url(entry) or pubmed_url(entry),
+                short_authors(entry.get("author", "")))
+
+
+# ---------- stacked items: Home's lists and the Writing page (pure) ---------------------------------
+
+def card(label: str, title: str, href: str, detail: str = "") -> str:
+    """One stacked item: a small-caps label line, the title (linked when there is an href), a detail line.
+
+    `label`, `title` and `href` are plain text and are escaped here; `detail` is HTML.
+    """
+    heading = f'<a href="{html.escape(href)}">{html.escape(title)}</a>' if href else html.escape(title)
+    detail_line = f"<p>{detail}</p>" if detail else ""
+    return f'<div class="card"><p>{html.escape(label)}</p><p>{heading}</p>{detail_line}</div>'
+
+
+def card_list(cards: list[str]) -> str:
+    """Cards in one stacked list, or "Coming soon." when there are none."""
+    return '<div class="cards">\n' + "\n".join(cards) + "\n</div>" if cards else COMING_SOON
+
+
+def post_card(p: Post) -> str:
+    """A post as a stacked item: its date, its title and its summary (after the outlet, if elsewhere)."""
+    detail = html.escape(p.summary)
+    if p.outlet:
+        detail = f"<em>{html.escape(p.outlet)}</em> • {detail}"
+    return card(long_date(p.date), p.title, p.url, detail)
+
+
+def entry_card(e: cp.Entry) -> str:
+    """A commonplace entry as a stacked item: its type and month, its title and its summary."""
+    return card(f"{cp.type_label(e.types)} • {cp.short_date(e.added)}", e.title, e.url, html.escape(e.summary))
+
+
+def recent_section(heading: str, anchor: str, cards: list[str], more_href: str, more_label: str) -> str:
+    """A Home section: its h2, then the cards and a link to the rest, or "Coming soon." when empty."""
+    parts = [f'<h2 id="{anchor}">{heading}</h2>', card_list(cards)]
+    if cards:
+        parts.append(f'<p><a href="{more_href}">{more_label}</a></p>')
+    return "\n".join(parts)
+
+
+def writing_recent(posts: list[Post]) -> str:
+    """Home's Writing section: the newest posts, here or elsewhere. `posts` is newest first."""
+    return recent_section("Writing", "writing", [post_card(p) for p in posts[:HOME_RECENT]],
+                          "/writing/", "All writing")
+
+
+def commonplace_recent(entries: tuple[cp.Entry, ...]) -> str:
+    """Home's Commonplace section: the newest entries."""
+    return recent_section("Commonplace", "commonplace",
+                          [entry_card(e) for e in cp.newest_first(entries)[:HOME_RECENT]],
+                          "/commonplace/", "All entries")
+
+
 # ---------- page assembly (pure) ---------------------------------------------------------------
 
-def expand_tokens(body: str, pubs: Bib, ctx: dict[str, str], where: str) -> str:
-    """Replace publication and {{name}} tokens in rendered HTML; fail on unknown keys or leftovers."""
-    def keyed(m: re.Match) -> str:
-        wanted = m.group(1).split()
-        missing = [k for k in wanted if k not in pubs]
-        if missing:
+def expand_tokens(body: str, pubs: Bib, ctx: dict[str, str], where: str,
+                  sections: dict[str, str] | None = None) -> str:
+    """Replace publication, section and {{name}} tokens in rendered HTML; fail on unknown keys or leftovers.
+
+    `sections` holds what <!-- writing:recent --> and <!-- commonplace:recent --> become, keyed
+    "writing" and "commonplace". Only pages under pages/ get them; a token without one fails.
+    """
+    sections = sections or {}
+
+    def wanted(m: re.Match) -> list[dict[str, str]]:
+        keys = m.group(1).split()
+        if not keys:
+            raise BuildError(f"{where}: {m.group(0)} lists no bib keys")
+        if (missing := [k for k in keys if k not in pubs]):
             raise BuildError(f"{where}: unknown bib key(s): {', '.join(missing)}")
-        return "\n".join(fmt_pub(e) for e in sorted((pubs[k] for k in wanted), key=pub_date, reverse=True))
+        return sorted((pubs[k] for k in keys), key=pub_date, reverse=True)
+
+    def section(m: re.Match) -> str:
+        if m.group(1) not in sections:
+            raise BuildError(f"{where}: {m.group(0).strip()} only works on pages under pages/")
+        return "\n" + sections[m.group(1)]
 
     body = substitute(body, ctx, where)
-    body = re.sub(r"<!--\s*pubs:keys\s+(.*?)\s*-->", keyed, body)
+    body = re.sub(r"<!--\s*pubs:keys\s+(.*?)\s*-->", lambda m: "\n".join(fmt_pub(e) for e in wanted(m)), body)
+    body = re.sub(r"<!--\s*pubs:compact\s+(.*?)\s*-->", lambda m: card_list([fmt_compact(e) for e in wanted(m)]),
+                  body)
     body = re.sub(r"<!--\s*pubs:all\s*-->", lambda _: "\n".join(fmt_pub(e) for e in pubs.values()), body)
-    if (left := re.search(r"<!--\s*pubs:", body)):
-        raise BuildError(f"{where}: malformed publication token {left.group(0)}")
+    body = re.sub(r"\n?<!--\s*(writing|commonplace):recent\s*-->", section, body)
+    if (left := re.search(r"<!--\s*(pubs|writing|commonplace):", body)):
+        raise BuildError(f"{where}: malformed token {left.group(0)}")
     return body
 
 
@@ -352,14 +509,14 @@ def substitute(text: str, values: dict[str, str], where: str) -> str:
     return re.sub(r"\{\{(\w+)\}\}", value, text)
 
 
-def nav_html(current: str, show_writing: bool) -> str:
+NAV = [("Research", "/research/", "research"), ("Commonplace", "/commonplace/", "commonplace"),
+       ("Writing", "/writing/", "writing"), ("About &amp; CV", "/about/", "about"), ("CV (PDF)", "/cv.pdf", "")]
+
+
+def nav_html(current: str) -> str:
     """The site navigation, with aria-current on the current item."""
-    items = [("Research", "/research/", "research")]
-    if show_writing:
-        items.append(("Writing", "/writing/", "writing"))
-    items += [("About &amp; CV", "/about/", "about"), ("CV (PDF)", "/cv.pdf", "")]
     links = []
-    for label, href, key in items:
+    for label, href, key in NAV:
         current_attr = ' aria-current="page"' if key and key == current else ""
         links.append(f'      <a href="{href}"{current_attr}>{label}</a>')
     return "\n".join(links)
@@ -375,11 +532,31 @@ def text_of(value: object) -> str:
     return html.unescape(re.sub(r"<[^>]+>", "", str(value or ""))).strip()
 
 
+def plain_meta(value: object) -> object:
+    """Front matter from pandoc with every string reduced to plain text; lists, maps and booleans kept."""
+    if isinstance(value, dict):
+        return {key: plain_meta(v) for key, v in value.items()}
+    if isinstance(value, list):
+        return [plain_meta(v) for v in value]
+    if isinstance(value, bool) or value is None:
+        return value
+    return text_of(value)
+
+
+def body_class(meta: dict) -> str:
+    """' class="home"' for front matter `class: home`, "" without one; anything but a plain class name fails."""
+    name = text_of(meta.get("class"))
+    if name and not re.fullmatch(r"[a-z][a-z0-9-]*", name):
+        raise BuildError(f"`class: {name}` must be one lowercase class name")
+    return f' class="{name}"' if name else ""
+
+
 def page_fields(*, url: str, meta: dict, body: str, nav: str, css_version: str, feed_link: str,
                 year: int) -> dict[str, str]:
     """Values for templates/base.html."""
     title = text_of(meta.get("title")) or "Page not found"
     return {
+        "body_class": body_class(meta),
         "title_tag": html.escape(NAME if url == "/" else f"{title} | {NAME}"),
         "description": html.escape(text_of(meta.get("description")) or NAME),
         "canonical": SITE + url,
@@ -412,11 +589,6 @@ def now_label(month: str, today: dt.date) -> tuple[str, int]:
     except ValueError:
         raise BuildError(f"`now:` must be YYYY-MM, got {month!r}") from None
     return f"{first:%B} {first.year}", (today - first).days
-
-
-def long_date(d: dt.date) -> str:
-    """January 12, 2027."""
-    return f"{d:%B} {d.day}, {d.year}"
 
 
 def redirect_html(target: str, sections: dict[str, str]) -> str:
@@ -460,37 +632,92 @@ def sitemap_xml(urls: list[str]) -> str:
             '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + rows + "</urlset>\n")
 
 
-def feed_xml(posts: list[Post]) -> str:
-    """RSS 2.0 feed of published writing."""
-    rss = ET.Element("rss", version="2.0", attrib={"xmlns:atom": "http://www.w3.org/2005/Atom"})
+def feed_xml(name: str, page: str, feed: str, items: list[FeedItem]) -> str:
+    """RSS 2.0 feed. `page` and `feed` are site-relative URLs, e.g. "/writing/" and "/feed.xml"."""
+    ET.register_namespace("atom", "http://www.w3.org/2005/Atom")
+    rss = ET.Element("rss", version="2.0")
     channel = ET.SubElement(rss, "channel")
-    ET.SubElement(channel, "title").text = f"{NAME}: Writing"
-    ET.SubElement(channel, "link").text = f"{SITE}/writing/"
-    ET.SubElement(channel, "description").text = f"Writing by {NAME}."
-    ET.SubElement(channel, "{http://www.w3.org/2005/Atom}link", href=f"{SITE}/feed.xml", rel="self",
+    ET.SubElement(channel, "title").text = f"{NAME}: {name}"
+    ET.SubElement(channel, "link").text = SITE + page
+    ET.SubElement(channel, "description").text = f"{name} by {NAME}."
+    ET.SubElement(channel, "{http://www.w3.org/2005/Atom}link", href=SITE + feed, rel="self",
                   type="application/rss+xml")
-    for p in posts:
-        url = p.external or f"{SITE}/writing/{p.slug}/"
+    for it in items:
         item = ET.SubElement(channel, "item")
-        ET.SubElement(item, "title").text = p.title
-        ET.SubElement(item, "link").text = url
-        ET.SubElement(item, "guid", isPermaLink="true").text = url
-        ET.SubElement(item, "description").text = p.summary
-        noon = dt.datetime(p.date.year, p.date.month, p.date.day, 12, tzinfo=dt.timezone.utc)
+        ET.SubElement(item, "title").text = it.title
+        ET.SubElement(item, "link").text = it.url
+        ET.SubElement(item, "guid", isPermaLink="true").text = it.url
+        ET.SubElement(item, "description").text = it.summary
+        noon = dt.datetime(it.date.year, it.date.month, it.date.day, 12, tzinfo=dt.timezone.utc)
         ET.SubElement(item, "pubDate").text = email.utils.format_datetime(noon)
     ET.indent(rss)
     return '<?xml version="1.0" encoding="UTF-8"?>\n' + ET.tostring(rss, encoding="unicode") + "\n"
 
 
 def writing_index(posts: list[Post]) -> str:
-    """Body of /writing/: one dated entry per post."""
-    rows = []
-    for p in posts:
-        href = p.external or f"/writing/{p.slug}/"
-        outlet = f" • <em>{html.escape(p.outlet)}</em>" if p.outlet else ""
-        rows.append(f'<div class="entry"><p>{long_date(p.date)}</p>'
-                    f'<p><a href="{html.escape(href)}">{html.escape(p.title)}</a>{outlet}</p></div>')
-    return "\n".join(rows)
+    """Body of /writing/: Essays (hosted here), then Published Elsewhere, each newest first or "Coming soon."."""
+    here = [post_card(p) for p in posts if not p.external]
+    elsewhere = [post_card(p) for p in posts if p.external]
+    return "\n".join(['<h2 id="essays">Essays</h2>', card_list(here),
+                      '<h2 id="published-elsewhere">Published Elsewhere</h2>', card_list(elsewhere)])
+
+
+def reading_minutes(body_html: str) -> int:
+    """Minutes to read a rendered post: its words / WORDS_PER_MINUTE, rounded up, at least 1.
+
+    Comments and tags are not words; entities are decoded first so "&amp;" is not counted as text.
+    """
+    text = html.unescape(re.sub(r"<[^>]*>", " ", re.sub(r"<!--.*?-->", " ", body_html, flags=re.S)))
+    return max(1, math.ceil(len(text.split()) / WORDS_PER_MINUTE))
+
+
+def post_meta(p: Post, minutes: int) -> str:
+    """The line under a post's title: 'October 8, 2026 • updated November 2, 2026 • 4 min read'."""
+    facts = (["Draft"] if p.draft else []) + [long_date(p.date)]
+    if p.updated:
+        facts.append(f"updated {long_date(p.updated)}")
+    facts.append(f"{minutes} min read")
+    return f'<p class="meta">{" • ".join(facts)}</p>'
+
+
+def post_nav(p: Post, posts: list[Post]) -> str:
+    """The line under a post: the previous (older) and next (newer) post hosted here, and All writing."""
+    here = sorted((q for q in posts if not q.external), key=lambda q: (q.date, q.slug))
+    i = here.index(p)
+    parts = []
+    if i > 0:
+        parts.append(f'Previous: <a href="{here[i - 1].url}">{html.escape(here[i - 1].title)}</a>')
+    if i < len(here) - 1:
+        parts.append(f'Next: <a href="{here[i + 1].url}">{html.escape(here[i + 1].title)}</a>')
+    parts.append('<a href="/writing/">All writing</a>')
+    return f'<p class="post-nav">{" • ".join(parts)}</p>'
+
+
+def post_problems(meta: dict) -> list[str]:
+    """What is wrong with a post's front matter (strings already plain text); empty when it can be built."""
+    problems = [f"missing `{key}`" for key in ("title", "date", "summary") if not meta.get(key)]
+    dates = {key: cp.to_date(meta.get(key, "")) for key in ("date", "updated")}
+    for key, day in dates.items():
+        if meta.get(key) not in (None, "") and day is None:
+            problems.append(f"`{key}` must be YYYY-MM-DD, got {meta[key]!r}")
+    if dates["date"] and dates["updated"] and dates["updated"] < dates["date"]:
+        problems.append("`updated` is earlier than `date`")
+    if bool(meta.get("external")) != bool(meta.get("outlet")):
+        problems.append("`external` and `outlet` go together: give both or neither")
+    return problems
+
+
+def is_draft(meta: dict) -> bool:
+    """True for `draft: true` (YAML's boolean or the word)."""
+    return meta.get("draft") is True or str(meta.get("draft")).lower() == "true"
+
+
+def make_post(path: Path, meta: dict) -> Post:
+    """A Post from front matter that has already passed post_problems."""
+    return Post(path=path, slug=path.stem, title=str(meta["title"]), summary=str(meta["summary"]),
+                date=cp.to_date(meta["date"]), external=str(meta.get("external") or ""),
+                outlet=str(meta.get("outlet") or ""), updated=cp.to_date(meta.get("updated", "")),
+                draft=is_draft(meta))
 
 
 # ---------- input and output -------------------------------------------------------------------
@@ -511,13 +738,18 @@ def read_publications(bib_path: Path) -> Bib:
     return select_publications(parse_bib(bib_path.read_text(encoding="utf-8")))
 
 
+def rel(path: Path) -> str:
+    """A path relative to the repository when it is inside it, for messages."""
+    return str(path.relative_to(ROOT)) if path.is_relative_to(ROOT) else str(path)
+
+
 def pandoc(path: Path, *args: str) -> str:
     """Render a Markdown file to HTML5 with pandoc."""
     cmd = ["pandoc", str(path), "-f", "markdown", "-t", "html5", "--wrap=none", *args]
     try:
         return subprocess.run(cmd, capture_output=True, text=True, check=True).stdout
     except subprocess.CalledProcessError as err:
-        raise BuildError(f"pandoc failed on {path.relative_to(ROOT)}:\n{err.stderr}") from None
+        raise BuildError(f"pandoc failed on {rel(path)}:\n{err.stderr}") from None
 
 
 def read_meta(path: Path) -> dict:
@@ -525,19 +757,74 @@ def read_meta(path: Path) -> dict:
     return json.loads(pandoc(path, "--template", str(TEMPLATES / "meta.tpl")))
 
 
-def read_post(path: Path) -> Post | None:
-    """A Post, or None if it is a draft."""
-    meta = read_meta(path)
-    if meta.get("draft") is True or text_of(meta.get("draft")).lower() == "true":
-        return None
-    title, summary, date = (text_of(meta.get(k)) for k in ("title", "summary", "date"))
-    if not (title and summary and date):
-        raise BuildError(f"{path.relative_to(ROOT)}: title, date and summary are required")
-    try:
-        day = dt.date.fromisoformat(date)
-    except ValueError:
-        raise BuildError(f"{path.relative_to(ROOT)}: date must be YYYY-MM-DD, got {date!r}") from None
-    return Post(path, path.stem, title, summary, day, text_of(meta.get("external")), text_of(meta.get("outlet")))
+def read_posts(posts_dir: Path, include_drafts: bool = False) -> list[Post]:
+    """The posts in posts_dir, newest first; drafts only when include_drafts.
+
+    Every problem in every post's front matter is collected and raised together in one BuildError.
+    """
+    posts, problems = [], []
+    for path in sorted(posts_dir.glob("*.md")):
+        meta = plain_meta(read_meta(path))
+        if is_draft(meta) and not include_drafts:
+            continue
+        if (found := post_problems(meta)):
+            problems += [f"{rel(path)}: {problem}" for problem in found]
+        else:
+            posts.append(make_post(path, meta))
+    if problems:
+        raise BuildError("writing:\n  " + "\n  ".join(problems))
+    return sorted(posts, key=lambda p: (p.date, p.slug), reverse=True)
+
+
+def read_entry(path: Path, topic_slugs: set[str], draft: bool) -> tuple[cp.Entry | None, list[str]]:
+    """One commonplace entry, and what stops it from building (the entry is None when anything does).
+
+    Leftovers from staging (CHECK comments, [[wikilinks]]) stop a published entry; in a draft they
+    are printed as warnings and the draft is still built.
+    """
+    meta = plain_meta(read_meta(path))
+    problems = cp.entry_problems(path.stem, meta, topic_slugs)
+    leftovers = cp.text_problems(path.read_text(encoding="utf-8"))
+    if draft:
+        for leftover in leftovers:
+            print(f"warning: {rel(path)}: {leftover}", file=sys.stderr)
+    else:
+        problems += leftovers
+    entry = None if problems else cp.make_entry(path.stem, meta, path, draft)
+    return entry, [f"{rel(path)}: {p}" for p in problems]
+
+
+def read_book(preview: bool, book_dir: Path = BOOK, entries_dir: Path = ENTRIES,
+              drafts_dir: Path = DRAFT_ENTRIES) -> cp.Book:
+    """Read the commonplace book: its config, the published entries and, when previewing, the drafts.
+
+    Every problem in the config and the entries is collected and raised together in one
+    BuildError, so a single build lists them all.
+    """
+    index = book_dir / "index.md"
+    config = plain_meta(read_meta(index))
+    topics, trails = cp.parse_config(config)
+    topic_slugs = {t.slug for t in topics}
+    published = sorted(entries_dir.glob("*.md"))
+    drafts = sorted(drafts_dir.glob("*.md")) if preview else []
+    entries, problems = [], []
+    for path, draft in [(p, False) for p in published] + [(p, True) for p in drafts]:
+        entry, found = read_entry(path, topic_slugs, draft)
+        problems += found
+        if entry:
+            entries.append(entry)
+    for slug in sorted({p.stem for p in published} & {p.stem for p in drafts}):
+        problems.append(f"{slug!r} is both published ({rel(entries_dir)}) and drafted ({rel(drafts_dir)})")
+    # Check paths against every entry file, so one broken entry is not also reported as missing.
+    slugs = {p.stem for p in published + drafts}
+    problems += [f"{rel(index)}: {p}" for p in cp.config_problems(topics, trails, slugs)]
+    title, description = str(config.get("title") or ""), str(config.get("description") or "")
+    if not (title and description):
+        problems.append(f"{rel(index)} needs `title` and `description` in its front matter")
+    if problems:
+        raise BuildError("commonplace:\n  " + "\n  ".join(problems))
+    return cp.Book(title=title, description=description, intro=pandoc(index), topics=topics,
+                   trails=trails, entries=tuple(entries))
 
 
 def write_outputs(outputs: dict[str, str], root: Path = ROOT) -> list[str]:
@@ -552,7 +839,20 @@ def write_outputs(outputs: dict[str, str], root: Path = ROOT) -> list[str]:
     return changed
 
 
-PROTECTED_DIRS = {".git", "pages", "templates", "tools", "tests", "writing/posts"}
+def write_preview(outputs: dict[str, str], out: Path = PREVIEW_OUT, drafts: Path = DRAFTS) -> None:
+    """Replace the preview folder with this build's files.
+
+    Only `out` is deleted, and only after checking that it lies inside `drafts`, so a wrong
+    constant can never delete staged drafts or anything in the repository.
+    """
+    if not out.resolve().is_relative_to(drafts.resolve()) or out.resolve() == drafts.resolve():
+        raise BuildError(f"preview folder {out} must be inside {drafts}; nothing written")
+    if out.exists():
+        shutil.rmtree(out)
+    write_outputs(outputs, out)
+
+
+PROTECTED_DIRS = {".git", "pages", "templates", "tools", "tests", "writing/posts", "commonplace/entries", "drafts"}
 
 
 def prunable(rel: str, root: Path = ROOT) -> bool:
@@ -603,16 +903,20 @@ def prune_stale(outputs: dict[str, str], manifest: Path = MANIFEST, root: Path =
 
 # ---------- build steps ------------------------------------------------------------------------
 
-def build_pages(base: str, pubs: Bib, nav_writing: bool, common: dict[str, str]) -> tuple[dict[str, str], list[str]]:
-    """Render every page under pages/; return (outputs, sitemap URLs)."""
+def build_pages(base: str, pubs: Bib, sections: dict[str, str],
+                common: dict[str, str]) -> tuple[dict[str, str], list[str]]:
+    """Render every page under pages/; return (outputs, sitemap URLs).
+
+    `sections` fills the <!-- writing:recent --> and <!-- commonplace:recent --> tokens.
+    """
     outputs, urls, today = {}, [], dt.date.today()
     for src in sorted(PAGES.rglob("*.md")):
-        where = str(src.relative_to(ROOT))
-        rel, url = out_path(src.relative_to(PAGES).with_suffix("").as_posix())
+        where = rel(src)
+        out_file, url = out_path(src.relative_to(PAGES).with_suffix("").as_posix())
         meta = read_meta(src)
         if src.stem != "404" and not (meta.get("title") and meta.get("description")):
             raise BuildError(f"{where} needs `title` and `description` in its front matter")
-        ctx = {"pub_count": str(len(pubs))}
+        ctx = {"pub_count": str(len(pubs)), "ai_assisted": AI_ASSISTED}
         if meta.get("now"):
             ctx["now"], age = now_label(text_of(meta["now"]), today)
             if age > NOW_MAX_DAYS:
@@ -621,78 +925,146 @@ def build_pages(base: str, pubs: Bib, nav_writing: bool, common: dict[str, str])
             meta["noindex"] = True
         else:
             urls.append(url)
-        body = expand_tokens(pandoc(src), pubs, ctx, where)
-        nav = nav_html(text_of(meta.get("nav")), nav_writing)
-        outputs[rel] = fill_template(base, page_fields(url=url, meta=meta, body=body, nav=nav,
-                                                       year=today.year, **common))
+        body = expand_tokens(pandoc(src), pubs, ctx, where, sections)
+        nav = nav_html(text_of(meta.get("nav")))
+        outputs[out_file] = fill_template(base, page_fields(url=url, meta=meta, body=body, nav=nav,
+                                                            year=today.year, **common))
     return outputs, urls
 
 
-def build_writing(base: str, pubs: Bib, posts: list[Post], nav_writing: bool,
+def post_body(p: Post, posts: list[Post], pubs: Bib) -> str:
+    """A post page's body: the date and reading-time line, the rendered text, then Previous and Next."""
+    text = expand_tokens(pandoc(p.path), pubs, {}, rel(p.path))
+    return post_meta(p, reading_minutes(text)) + "\n" + text.strip() + "\n" + post_nav(p, posts)
+
+
+def build_writing(base: str, pubs: Bib, posts: list[Post],
                   common: dict[str, str]) -> tuple[dict[str, str], list[str]]:
-    """Render published posts, the Writing index and the feed; nothing when there are no posts."""
-    if not posts:
-        return {}, []
-    outputs, urls, year = {}, [], dt.date.today().year
-    nav = nav_html("writing", nav_writing)
-    for p in posts:
-        if p.external:
-            continue
-        body = (f'<p class="meta"><em>{long_date(p.date)}</em></p>\n'
-                + expand_tokens(pandoc(p.path), pubs, {}, str(p.path.relative_to(ROOT))))
-        meta = {"title": p.title, "description": p.summary}
-        url = f"/writing/{p.slug}/"
-        outputs[f"writing/{p.slug}/index.html"] = fill_template(
-            base, page_fields(url=url, meta=meta, body=body, nav=nav, year=year, **common))
-        urls.append(url)
-    meta = {"title": "Writing", "description": f"Essays by {NAME}."}
-    outputs["writing/index.html"] = fill_template(
-        base, page_fields(url="/writing/", meta=meta, body=writing_index(posts), nav=nav, year=year, **common))
-    outputs["feed.xml"] = feed_xml(posts)
-    return outputs, urls + ["/writing/"]
+    """Render /writing/ (always), a page for each post hosted here, and the feed once there are posts.
+
+    Returns (outputs, sitemap URLs).
+    """
+    pages = [("/writing/", {"title": "Writing", "description": f"Essays by {NAME}."}, writing_index(posts))]
+    pages += [(p.url, {"title": p.title, "description": p.summary}, post_body(p, posts, pubs))
+              for p in posts if not p.external]
+    nav, year = nav_html("writing"), dt.date.today().year
+    outputs = {url.lstrip("/") + "index.html":
+               fill_template(base, page_fields(url=url, meta=meta, body=body, nav=nav, year=year, **common))
+               for url, meta, body in pages}
+    if posts:
+        items = [FeedItem(p.title, p.external or SITE + p.url, p.summary, p.date) for p in posts]
+        outputs["feed.xml"] = feed_xml("Writing", "/writing/", "/feed.xml", items)
+    return outputs, [url for url, _, _ in pages]
 
 
-def build() -> tuple[dict[str, str], Bib, list[Post]]:
-    """Render the whole site into a {path: contents} map without writing anything."""
+def entry_body(e: cp.Entry, book: cp.Book, pubs: Bib) -> str:
+    """An entry page's body: breadcrumb, title and dates, the rendered text, then related entries.
+
+    Math is rendered to MathML, which browsers display without JavaScript.
+    """
+    text = expand_tokens(pandoc(e.source, "--mathml"), pubs, {}, rel(e.source))
+    return cp.entry_head(e, {t.slug: t for t in book.topics}) + text.strip() + "\n" + cp.entry_foot(e, book)
+
+
+def build_commonplace(base: str, pubs: Bib, book: cp.Book,
+                      common: dict[str, str]) -> tuple[dict[str, str], list[str]]:
+    """Render the index and every topic page (always), then the entries, reading paths and feed if any.
+
+    Returns (outputs, sitemap URLs).
+    """
+    by_slug = {e.slug: e for e in book.entries}
+    # (url, front matter, body). Topic and entry pages write their own h1 below a breadcrumb.
+    pages = [("/commonplace/", {"title": book.title, "description": book.description}, cp.index_body(book))]
+    for t in book.topics:
+        about = f"Entries on {t.title} in {NAME}'s commonplace book."
+        pages.append((t.url, {"title": t.title, "description": about, "heading": False},
+                      cp.topic_body(t, book.entries)))
+    for e in book.entries:
+        pages.append((e.url, {"title": e.title, "description": e.summary, "heading": False},
+                      entry_body(e, book, pubs)))
+    for t in book.trails:
+        if t.entries:
+            about = f"A reading path in {NAME}'s commonplace book: {cp.count_label(len(t.entries))}, in order."
+            pages.append((t.url, {"title": t.title, "description": about}, cp.trail_body(t, by_slug)))
+    nav, year = nav_html("commonplace"), dt.date.today().year
+    outputs = {url.lstrip("/") + "index.html":
+               fill_template(base, page_fields(url=url, meta=meta, body=body, nav=nav, year=year, **common))
+               for url, meta, body in pages}
+    if book.entries:
+        items = [FeedItem(e.title, SITE + e.url, e.summary, e.added) for e in cp.newest_first(book.entries)]
+        outputs["commonplace/feed.xml"] = feed_xml(book.title, "/commonplace/", "/commonplace/feed.xml", items)
+    return outputs, [url for url, _, _ in pages]
+
+
+def feed_links(writing: bool, commonplace: bool) -> str:
+    """<link rel="alternate"> tags for the head of every page."""
+    links = []
+    if writing:
+        links.append('<link rel="alternate" type="application/rss+xml" title="Writing" href="/feed.xml">\n')
+    if commonplace:
+        links.append('<link rel="alternate" type="application/rss+xml" title="Commonplace" '
+                     'href="/commonplace/feed.xml">\n')
+    return "".join(links)
+
+
+def build(preview: bool = False) -> tuple[dict[str, str], Bib, list[Post], cp.Book]:
+    """Render the whole site into a {path: contents} map without writing anything.
+
+    With preview, drafts are included (writing drafts and drafts/commonplace/).
+    """
     if not shutil.which("pandoc"):
         raise BuildError("pandoc is not installed")
     config = load_config()
     pubs = read_publications(config["bib"])
-    posts = sorted(filter(None, (read_post(p) for p in sorted(POSTS.glob("*.md")))),
-                   key=lambda p: (p.date, p.slug), reverse=True)
+    posts = read_posts(POSTS, include_drafts=preview)
+    if preview:   # drafts/writing/ is gitignored, so unpublished essays never reach the public repository
+        posts = sorted(posts + read_posts(DRAFT_POSTS, include_drafts=True), key=lambda p: (p.date, p.slug), reverse=True)
+    book = read_book(preview, BOOK, ENTRIES, DRAFT_ENTRIES)
     base = (TEMPLATES / "base.html").read_text(encoding="utf-8")
-    nav_writing = len(posts) >= WRITING_NAV_AT
     common = {
         "css_version": hashlib.sha1((ROOT / "style.css").read_bytes()).hexdigest()[:8],
-        "feed_link": ('<link rel="alternate" type="application/rss+xml" title="Writing" href="/feed.xml">\n'
-                      if posts else ""),
+        "feed_link": feed_links(bool(posts), bool(book.entries)),
     }
-    outputs, urls = build_pages(base, pubs, nav_writing, common)
-    writing, writing_urls = build_writing(base, pubs, posts, nav_writing, common)
+    sections = {"writing": writing_recent(posts), "commonplace": commonplace_recent(book.entries)}
+    outputs, urls = build_pages(base, pubs, sections, common)
+    writing, writing_urls = build_writing(base, pubs, posts, common)
     merge(outputs, writing)
+    commonplace, book_urls = build_commonplace(base, pubs, book, common)
+    merge(outputs, commonplace)
     merge(outputs, {old: redirect_html(new, sections) for old, (new, sections) in REDIRECTS.items()})
     targets = [new for new, sections in REDIRECTS.values()] + [t for _, s in REDIRECTS.values() for t in s.values()]
     if (missing := missing_anchors(outputs, targets)):
         raise BuildError(f"redirects point at missing pages or anchors: {', '.join(missing)}")
-    merge(outputs, {"sitemap.xml": sitemap_xml(urls + writing_urls)})
-    return outputs, pubs, posts
+    merge(outputs, {"sitemap.xml": sitemap_xml(urls + writing_urls + book_urls)})
+    return outputs, pubs, posts, book
 
 
-def main() -> int:
-    """Build, write changed files, prune stale ones, and report."""
+def main(argv: list[str] | None = None) -> int:
+    """Build; write changed files, prune stale ones and report, or with --preview write drafts/_site."""
+    parser = argparse.ArgumentParser(description="Build garrettthrash.com from its Markdown sources.")
+    parser.add_argument("--preview", action="store_true",
+                        help="include drafts and write everything to drafts/_site (never the repository)")
+    args = parser.parse_args(argv)
     try:
-        outputs, pubs, posts = build()
-    except BuildError as err:
+        outputs, pubs, posts, book = build(preview=args.preview)
+        if args.preview:
+            write_preview(outputs)
+    except (BuildError, cp.CommonplaceError) as err:
         print(f"build.py: {err}", file=sys.stderr)
         return 1
+    if args.preview:
+        drafts = sum(e.draft for e in book.entries)
+        print(f"preview: {len(outputs)} files in {rel(PREVIEW_OUT)}; {len(posts)} posts (drafts included); "
+              f"{len(book.entries)} commonplace entries ({drafts} drafts). Serve with: python3 tools/serve.py 8000")
+        return 0
     changed = write_outputs(outputs)
     removed = prune_stale(outputs)
-    for rel in changed:
-        print("updated", rel)
-    for rel in removed:
-        print("removed", rel)
+    for path in changed:
+        print("updated", path)
+    for path in removed:
+        print("removed", path)
     print(f"{len(outputs)} files; {len(pubs)} publications; {len(posts)} published posts; "
-          f"{len(changed)} updated, {len(removed)} removed.")
+          f"{len(book.entries)} commonplace entries; {len(changed)} updated, {len(removed)} removed.")
     return 0
 
 

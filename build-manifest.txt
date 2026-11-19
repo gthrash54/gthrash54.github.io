@@ -1,5 +1,14 @@
 404.html
 about/index.html
+commonplace/index.html
+commonplace/topics/basal-ganglia/index.html
+commonplace/topics/brain-states/index.html
+commonplace/topics/dbs-mechanisms/index.html
+commonplace/topics/foundations/index.html
+commonplace/topics/machine-learning/index.html
+commonplace/topics/oscillations/index.html
+commonplace/topics/signal-processing/index.html
+commonplace/topics/statistics/index.html
 index.html
 projects/ai-evidence-screening/index.html
 projects/dbs-recording-inventory/index.html
@@ -9,3 +18,4 @@ research.html
 research/index.html
 sitemap.xml
 talks.html
+writing/index.html

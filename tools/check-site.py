@@ -4,7 +4,9 @@
 Every generated HTML page must have: links and #anchors that resolve (including absolute links
 back to garrettthrash.com), the head tags that search and share previews need, exactly one h1,
 no duplicate ids, and valid JSON-LD. Nothing on the site may contain a banned word, a British
-spelling, or an em dash. sitemap.xml must exist and parse; feed.xml must parse when present.
+spelling, an em dash, or a CHECK: comment left from staging a commonplace entry. sitemap.xml must
+exist and parse; the feeds (feed.xml, commonplace/feed.xml) must parse when present. Commonplace
+pages are checked like any other page; the preview in drafts/ is not checked.
 This is a guard against common mistakes, not a full HTML validator.
 
 Usage: python3 tools/check-site.py     Exit status 1 if anything is wrong.
@@ -24,11 +26,12 @@ SKIP_DIRS = {".git", "pages", "templates", "tools", "tests", "drafts", "node_mod
 HEAD_TAGS = ['<title>', 'name="description"', 'og:title', 'og:image" content="https://',
              'rel="icon" href="/favicon.svg"', 'rel="canonical"']
 BANNED = ["physician", "stealth", "pre-seed", "Tools I build", "hidden>", "direct AI", "AnalyzeLFPs", "analyzelfps",
-          "—", "&mdash;"]
+          "—", "&mdash;", "CHECK:"]
 BRITISH = re.compile(r"\b(organis\w*|modell\w*|labell\w*|colour\w*|behaviour\w*|centre\w*|favour\w*|analys(e|ed|ing)\b)",
                      re.I)
 SITE = "https://garrettthrash.com"
 EXTERNAL = ("http:", "https:", "mailto:", "tel:", "data:", "javascript:")
+FEEDS = ("feed.xml", "commonplace/feed.xml")
 LINK = re.compile(r"""(?:href|src)\s*=\s*(["'])(.*?)\1""")
 
 
@@ -86,9 +89,9 @@ def wording_problems(html: str) -> list[str]:
 
 
 def xml_problems(root: Path = ROOT) -> list[str]:
-    """sitemap.xml must exist and parse; feed.xml must parse when present."""
+    """sitemap.xml must exist and parse; the feeds must parse when present."""
     problems = [] if (root / "sitemap.xml").exists() else ["sitemap.xml is missing"]
-    for name in ("sitemap.xml", "feed.xml"):
+    for name in ("sitemap.xml", *FEEDS):
         if (root / name).exists():
             try:
                 ET.parse(root / name)

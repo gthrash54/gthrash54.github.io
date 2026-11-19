@@ -2,8 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://garrettthrash.com/</loc></url>
   <url><loc>https://garrettthrash.com/about/</loc></url>
+  <url><loc>https://garrettthrash.com/commonplace/</loc></url>
+  <url><loc>https://garrettthrash.com/commonplace/topics/basal-ganglia/</loc></url>
+  <url><loc>https://garrettthrash.com/commonplace/topics/brain-states/</loc></url>
+  <url><loc>https://garrettthrash.com/commonplace/topics/dbs-mechanisms/</loc></url>
+  <url><loc>https://garrettthrash.com/commonplace/topics/foundations/</loc></url>
+  <url><loc>https://garrettthrash.com/commonplace/topics/machine-learning/</loc></url>
+  <url><loc>https://garrettthrash.com/commonplace/topics/oscillations/</loc></url>
+  <url><loc>https://garrettthrash.com/commonplace/topics/signal-processing/</loc></url>
+  <url><loc>https://garrettthrash.com/commonplace/topics/statistics/</loc></url>
   <url><loc>https://garrettthrash.com/projects/ai-evidence-screening/</loc></url>
   <url><loc>https://garrettthrash.com/projects/dbs-recording-inventory/</loc></url>
   <url><loc>https://garrettthrash.com/publications/</loc></url>
   <url><loc>https://garrettthrash.com/research/</loc></url>
+  <url><loc>https://garrettthrash.com/writing/</loc></url>
 </urlset>

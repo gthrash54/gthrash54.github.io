@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&amp;display=swap">
-<link rel="stylesheet" href="/style.css?v=ddce7325">
+<link rel="stylesheet" href="/style.css?v=797a97ba">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -51,72 +51,101 @@
 }
 </script>
 </head>
-<body>
+<body class="home">
+<div class="margin-neurons" aria-hidden="true"><svg viewBox="0 0 160 777" preserveAspectRatio="xMidYMin meet"><use href="/img/cajal-cortex.svg#cortex" width="160" height="777"/></svg></div>
 <header class="letterhead">
   <div class="wrap bar">
     <a class="brand" href="/"><svg class="lead" viewBox="0 0 10 30" aria-hidden="true"><path d="M3 0V25.5a2 2 0 0 0 4 0V0" fill="none" stroke="currentColor" stroke-width="1"/><rect x="3" y="9" width="4" height="2.6" fill="currentColor"/><rect x="3" y="13.4" width="4" height="2.6" fill="currentColor"/><rect class="on" x="3" y="17.8" width="4" height="2.6"/><rect x="3" y="22.2" width="4" height="2.6" fill="currentColor"/></svg>Garrett W. Thrash</a>
     <nav class="site-nav" aria-label="Site">
       <a href="/research/">Research</a>
+      <a href="/commonplace/">Commonplace</a>
+      <a href="/writing/">Writing</a>
       <a href="/about/">About &amp; CV</a>
       <a href="/cv.pdf">CV (PDF)</a>
     </nav>
   </div>
 </header>
 <main class="wrap">
-<header class="cv-head">
-<h1>
-Garrett W. Thrash
-</h1>
-<p>
-M.D. Candidate (c/o 2027) • Incoming Ph.D. Student, Neuroengineering (2027)
-</p>
-<p>
-University of Alabama at Birmingham Heersink School of Medicine
-</p>
-<p class="contact">
-<a href="mailto:gthrash@uab.edu">gthrash@uab.edu</a> • <a href="https://scholar.google.com/citations?user=FJ4ulF4AAAAJ" rel="me">Google Scholar</a> • <a href="https://orcid.org/0009-0008-1061-8679" rel="me">ORCID</a> • <a href="https://github.com/gthrash54" rel="me">GitHub</a> • <a href="https://www.linkedin.com/in/garrett-thrash-311709430/" rel="me">LinkedIn</a>
-</p>
+<!-- The hero and the closed-loop strip are raw HTML, styled under .home in style.css. The strip:
+     a DBS lead senses y(t), the decoder κ turns it into burst-gated pulses u(t), which return to
+     the green contact. -->
+<header class="hero">
+<div>
+<h1>Garrett W. Thrash</h1>
+<p class="status">M.D. Candidate (c/o 2027) • Incoming Ph.D. Student, Neuroengineering (2027)</p>
+<p class="lede">In Dr. Harrison Walker’s lab I work on decoding subthalamic nucleus recordings, including evoked resonant neural activity (ERNA), for adaptive deep brain stimulation.</p>
+<p class="links"><a href="mailto:gthrash@uab.edu">Email</a> <a href="https://scholar.google.com/citations?user=FJ4ulF4AAAAJ" rel="me">Scholar</a> <a href="https://orcid.org/0009-0008-1061-8679" rel="me">ORCID</a> <a href="https://github.com/gthrash54" rel="me">GitHub</a> <a href="https://www.linkedin.com/in/garrett-thrash-311709430/" rel="me">LinkedIn</a></p>
+</div>
+<div class="cells" aria-hidden="true"><svg viewBox="0 0 560 480"><use href="/img/cajal-purkinje.svg#purkinje" width="560" height="480"/></svg></div>
 </header>
-<p>I am a fourth-year medical student at the UAB Heersink School of Medicine and an incoming Ph.D. student in Neuroengineering at the University of Alabama at Birmingham. In Dr. Harrison Walker’s lab I work on decoding subthalamic nucleus recordings, including evoked resonant neural activity (ERNA), for adaptive deep brain stimulation. My published work is in neuromodulation for restless legs syndrome, neurosurgical outcomes, and equitable access to neurological care.</p>
+<figure class="loopline" aria-hidden="true">
+<svg viewBox="0 0 736 80" role="presentation">
+  <g class="lead-ink"><path d="M20,4 V72 a4,4 0 0 0 8,0 V4" class="trace"/>
+  <rect x="20" y="30" width="8" height="5"/><rect x="20" y="40" width="8" height="5"/>
+  <rect x="20" y="50" width="8" height="5" class="on"/><rect x="20" y="60" width="8" height="5"/></g>
+  <path d="M28,32.5 C40,32.5 44,22 60,22" class="trace"/>
+  <path d="M60.0,22.2 L61.4,21.8 L62.8,22.0 L64.2,22.2 L65.6,22.8 L67.0,22.7 L68.4,21.8 L69.8,21.6 L71.2,21.0 L72.6,21.1 L74.0,21.1 L75.4,21.2 L76.8,22.5 L78.2,21.8 L79.6,21.5 L81.0,21.3 L82.4,22.6 L83.8,23.6 L85.2,23.8 L86.6,23.6 L88.0,23.0 L89.4,22.8 L90.8,22.3 L92.2,22.6 L93.6,22.3 L95.0,21.9 L96.4,22.4 L97.9,21.2 L99.3,21.0 L100.7,20.5 L102.1,21.3 L103.5,21.9 L104.9,22.2 L106.3,22.2 L107.7,21.7 L109.1,21.6 L110.5,22.0 L111.9,22.6 L113.3,22.8 L114.7,21.8 L116.1,22.4 L117.5,22.1 L118.9,21.8 L120.3,22.8 L121.7,22.6 L123.1,21.6 L124.5,23.0 L125.9,23.0 L127.3,22.8 L128.7,23.1 L130.1,22.5 L131.5,22.4 L132.9,23.3 L134.3,22.4 L135.7,21.9 L137.1,21.3 L138.5,20.5 L139.9,20.7 L141.3,20.9 L142.7,22.0 L144.1,21.6 L145.5,22.1 L146.9,22.4 L148.3,23.1 L149.7,23.5 L151.1,23.4 L152.5,22.2 L153.9,23.5 L155.3,24.1 L156.7,23.4 L158.1,22.1 L159.5,21.7 L160.9,23.0 L162.3,24.4 L163.7,23.6 L165.1,23.7 L166.5,24.0 L167.9,22.8 L169.3,21.9 L170.8,21.8 L172.2,21.7 L173.6,21.5 L175.0,20.6 L176.4,20.6 L177.8,20.6 L179.2,20.6 L180.6,21.9 L182.0,21.1 L183.4,20.7 L184.8,20.7 L186.2,22.4 L187.6,22.7 L189.0,22.0 L190.4,23.1 L191.8,22.8 L193.2,21.9 L194.6,22.8 L196.0,21.8 L197.4,21.7 L198.8,21.9 L200.2,21.4 L201.6,20.7 L203.0,20.7 L204.4,20.5 L205.8,21.9 L207.2,22.9 L208.6,22.2 L210.0,21.4 L211.4,20.9 L212.8,19.8 L214.2,19.7 L215.6,22.1 L217.0,24.6 L218.4,24.6 L219.8,22.7 L221.2,20.3 L222.6,18.0 L224.0,20.1 L225.4,22.4 L226.8,26.4 L228.2,27.0 L229.6,23.3 L231.0,18.1 L232.4,15.3 L233.8,17.0 L235.2,22.1 L236.6,26.9 L238.0,27.5 L239.4,23.8 L240.8,17.7 L242.2,13.8 L243.7,15.6 L245.1,21.3 L246.5,27.2 L247.9,27.6 L249.3,23.8 L250.7,17.7 L252.1,13.8 L253.5,15.1 L254.9,20.4 L256.3,27.0 L257.7,28.9 L259.1,24.4 L260.5,20.4 L261.9,16.7 L263.3,16.8 L264.7,21.0 L266.1,25.8 L267.5,28.0 L268.9,25.3 L270.3,20.7 L271.7,17.9 L273.1,16.4 L274.5,19.3 L275.9,23.4 L277.3,25.0 L278.7,24.2 L280.1,21.7 L281.5,21.6 L282.9,21.3 L284.3,21.6 L285.7,24.0 L287.1,24.6 L288.5,23.3 L289.9,21.6 L291.3,19.8 L292.7,21.1 L294.1,21.8 L295.5,22.7 L296.9,22.6 L298.3,21.8 L299.7,23.3 L301.1,21.9 L302.5,22.7 L303.9,22.2 L305.3,23.3 L306.7,23.0 L308.1,22.0 L309.5,22.0 L310.9,21.8 L312.3,21.3 L313.7,21.4 L315.1,21.6 L316.6,20.8 L318.0,20.4 L319.4,21.0 L320.8,19.4 L322.2,20.8 L323.6,20.5 L325.0,21.1 L326.4,21.2 L327.8,21.0 L329.2,21.1 L330.6,20.9 L332.0,22.2 L333.4,23.1 L334.8,22.4 L336.2,22.9 L337.6,23.4 L339.0,24.0 L340.4,22.7 L341.8,22.0 L343.2,21.1 L344.6,21.9 L346.0,21.9 L347.4,22.7 L348.8,22.0 L350.2,21.0 L351.6,21.8 L353.0,20.8 L354.4,20.5 L355.8,21.0 L357.2,22.5 L358.6,21.5 L360.0,21.7 L361.4,22.1 L362.8,21.8 L364.2,21.6 L365.6,20.7 L367.0,21.7 L368.4,21.1 L369.8,20.3 L371.2,19.8 L372.6,20.5 L374.0,21.3 L375.4,20.8 L376.8,21.1 L378.2,21.2 L379.6,20.5 L381.0,21.0 L382.4,22.8 L383.8,22.8 L385.2,23.8 L386.6,22.9 L388.0,22.4 L389.4,22.7 L390.9,22.5 L392.3,21.8 L393.7,21.8 L395.1,21.0 L396.5,21.4 L397.9,20.9 L399.3,20.2 L400.7,19.5 L402.1,20.5 L403.5,20.2 L404.9,22.0 L406.3,22.9 L407.7,24.1 L409.1,22.8 L410.5,23.2 L411.9,22.6 L413.3,22.4 L414.7,22.6 L416.1,23.3 L417.5,23.2 L418.9,21.8 L420.3,21.2 L421.7,20.3 L423.1,19.6 L424.5,20.8 L425.9,23.0 L427.3,24.2 L428.7,23.0 L430.1,22.7 L431.5,21.2 L432.9,19.8 L434.3,20.5 L435.7,22.9 L437.1,24.3 L438.5,24.0 L439.9,22.4 L441.3,20.3 L442.7,19.2 L444.1,20.0 L445.5,24.2 L446.9,27.8 L448.3,27.9 L449.7,24.9 L451.1,19.7 L452.5,17.8 L453.9,19.3 L455.3,25.9 L456.7,29.7 L458.1,30.1 L459.5,26.5 L460.9,19.2 L462.3,15.7 L463.8,18.9 L465.2,25.1 L466.6,30.1 L468.0,31.1 L469.4,25.7 L470.8,18.3 L472.2,13.8 L473.6,15.2 L475.0,20.6 L476.4,26.5 L477.8,28.1 L479.2,26.0 L480.6,19.1 L482.0,14.2 L483.4,15.5 L484.8,20.9 L486.2,24.9 L487.6,28.2 L489.0,25.3 L490.4,18.9 L491.8,16.5 L493.2,16.5 L494.6,18.8 L496.0,23.2 L497.4,24.8 L498.8,23.0 L500.2,20.9 L501.6,18.7 L503.0,18.5 L504.4,20.0 L505.8,22.6 L507.2,24.0 L508.6,24.1 L510.0,22.5 L511.4,20.4 L512.8,20.2 L514.2,21.7 L515.6,23.3 L517.0,22.0 L518.4,21.3 L519.8,20.5 L521.2,21.9 L522.6,21.2 L524.0,21.3 L525.4,20.8 L526.8,21.2 L528.2,21.5 L529.6,21.1 L531.0,22.3 L532.4,21.4 L533.8,21.4 L535.2,22.2 L536.7,21.4 L538.1,20.4 L539.5,21.6 L540.9,22.1 L542.3,21.8 L543.7,21.8 L545.1,22.1 L546.5,22.8 L547.9,21.2 L549.3,20.7 L550.7,21.8 L552.1,22.7 L553.5,21.4 L554.9,20.9 L556.3,20.0 L557.7,20.0 L559.1,21.1 L560.5,21.1 L561.9,22.7 L563.3,23.0 L564.7,22.8 L566.1,22.3 L567.5,22.7 L568.9,22.6 L570.3,22.1 L571.7,21.9 L573.1,21.5 L574.5,21.5 L575.9,21.8 L577.3,21.4 L578.7,21.5 L580.1,22.1 L581.5,22.5 L582.9,22.4 L584.3,22.4 L585.7,22.2 L587.1,22.1 L588.5,22.0 L589.9,22.1 L591.3,22.9 L592.7,22.4 L594.1,21.6 L595.5,21.4 L596.9,21.7 L598.3,21.5 L599.7,22.2 L601.1,23.4 L602.5,23.0 L603.9,23.4 L605.3,22.5 L606.7,23.1 L608.1,24.5 L609.6,24.6 L611.0,22.9 L612.4,22.9 L613.8,23.6 L615.2,23.7 L616.6,22.9 L618.0,22.4 L619.4,22.2 L620.8,21.2 L622.2,20.9 L623.6,21.2 L625.0,21.0 L626.4,20.2 L627.8,20.0 L629.2,19.8 L630.6,21.1 L632.0,21.4 L633.4,21.1 L634.8,21.5 L636.2,20.9 L637.6,20.8 L639.0,20.5 L640.4,21.0 L641.8,19.6 L643.2,19.4 L644.6,20.2 L646.0,20.6" class="trace"/>
+  <path d="M646,22 H660" class="trace"/>
+  <path d="M654,18 L660,22 L654,26" class="trace"/>
+  <rect x="660" y="7" width="44" height="30" rx="3" class="block"/>
+  <text x="682" y="28" class="sym mid">κ</text>
+  <path d="M704,22 H716 V52.5 H30" class="loop"/>
+  <path d="M512.0,52.5 v-8 h-1.6 v13 h-1.6 v-5 M504.0,52.5 v-8 h-1.6 v13 h-1.6 v-5 M496.0,52.5 v-8 h-1.6 v13 h-1.6 v-5 M488.0,52.5 v-8 h-1.6 v13 h-1.6 v-5 M480.0,52.5 v-8 h-1.6 v13 h-1.6 v-5 M472.0,52.5 v-8 h-1.6 v13 h-1.6 v-5 M464.0,52.5 v-8 h-1.6 v13 h-1.6 v-5 M456.0,52.5 v-8 h-1.6 v13 h-1.6 v-5 M448.0,52.5 v-8 h-1.6 v13 h-1.6 v-5 M440.0,52.5 v-8 h-1.6 v13 h-1.6 v-5 M432.0,52.5 v-8 h-1.6 v13 h-1.6 v-5 M280.0,52.5 v-8 h-1.6 v13 h-1.6 v-5 M272.0,52.5 v-8 h-1.6 v13 h-1.6 v-5 M264.0,52.5 v-8 h-1.6 v13 h-1.6 v-5 M256.0,52.5 v-8 h-1.6 v13 h-1.6 v-5 M248.0,52.5 v-8 h-1.6 v13 h-1.6 v-5 M240.0,52.5 v-8 h-1.6 v13 h-1.6 v-5 M232.0,52.5 v-8 h-1.6 v13 h-1.6 v-5 M224.0,52.5 v-8 h-1.6 v13 h-1.6 v-5 M216.0,52.5 v-8 h-1.6 v13 h-1.6 v-5" class="loop"/>
+  <path d="M37,48.5 L29,52.5 L37,56.5" class="loop"/>
+  <text x="70" y="15" class="sym lbl">y(t)</text>
+  <text x="70" y="72.5" class="sym lbl">u(t)</text>
+</svg>
+</figure>
+<div class="intro">
+<p>I am a fourth-year medical student at the UAB Heersink School of Medicine. My published work is in neuromodulation for restless legs syndrome, neurosurgical outcomes, and equitable access to neurological care.</p>
+</div>
 <h2 id="research">Research</h2>
-<div class="entry">
+<!-- Each card: the dates, then the linked title, then the place. -->
+<div class="cards">
+<div class="card">
 <p>2026 – present</p>
-<p><strong><a href="/research/#adaptive-dbs">Intracranial recordings and adaptive deep brain stimulation</a></strong><br />
-Walker Lab, UAB Neurology<br />
-<em>Planned dissertation laboratory</em></p>
+<p><a href="/research/#adaptive-dbs">Intracranial recordings and adaptive deep brain stimulation</a></p>
+<p>Walker Lab, UAB Neurology • <em>Planned dissertation laboratory</em></p>
 </div>
-<div class="entry">
+<div class="card">
 <p>2024 – present</p>
-<p><strong><a href="/research/#equity">Global neurosurgery and equitable care</a></strong><br />
-Global Neurosurgery Research Group, Mission:Brain Foundation</p>
+<p><a href="/research/#equity">Global neurosurgery and equitable care</a></p>
+<p>Global Neurosurgery Research Group, Mission:Brain Foundation</p>
 </div>
-<div class="entry">
+<div class="card">
 <p>2023 – present</p>
-<p><strong><a href="/research/#neuromodulation">Neuromodulation for restless legs syndrome and hypertension</a></strong><br />
-Holland Clinical Research Lab, UAB Neurosurgery</p>
+<p><a href="/research/#neuromodulation">Neuromodulation for restless legs syndrome and hypertension</a></p>
+<p>Holland Clinical Research Lab, UAB Neurosurgery</p>
 </div>
-<div class="entry">
+<div class="card">
 <p>2022 – 2023</p>
-<p><strong><a href="/about/#experience">Ultraviolet B-induced immune suppression</a></strong><br />
-Immunology Research, UAB</p>
+<p><a href="/about/#experience">Ultraviolet B-induced immune suppression</a></p>
+<p>Immunology Research, UAB</p>
 </div>
-<div class="entry">
+<div class="card">
 <p>2021 – 2022</p>
-<p><strong><a href="/about/#experience">Expression and kinetics of novel enzymes</a></strong><br />
-Enzyme Kinetics Research, Birmingham-Southern College</p>
+<p><a href="/about/#experience">Expression and kinetics of novel enzymes</a></p>
+<p>Enzyme Kinetics Research, Birmingham-Southern College</p>
+</div>
 </div>
 <h2 id="selected-publications">Selected Publications</h2>
-<div class="entry ref"><p>2026</p><p><strong>Thrash GW</strong>, Stacey GK, Wang E, Razi R, Townsend C, Brockington D, Holland MT. <span class="t">Therapeutic Deep Brain Stimulation for Restless Legs Syndrome: A Systematic Review and Meta-Analysis.</span> <em>Neuromodulation: Technology at the Neural Interface</em>. <span class="ids"><a href="https://doi.org/10.1016/j.neurom.2026.08.008">doi</a></span></p></div>
-<div class="entry ref"><p>2026</p><p><strong>Thrash GW</strong>, Wang E, Brockington D, Rives C, Sun Y, Roberts AC, Das S, Pilitsis JG, Shirvalkar P, do Campo RV, Walker HC, Earley CJ, Holland MT. <span class="t">Neuromodulation for Restless Legs Syndrome: A Systematic Review and Mechanistic Considerations for Spinal Cord Stimulation.</span> <em>Sleep and Breathing</em> 30(1):83. <span class="ids"><a href="https://doi.org/10.1007/s11325-026-03638-7">doi</a><a href="https://pubmed.ncbi.nlm.nih.gov/41806217/">pubmed</a></span></p></div>
-<div class="entry ref"><p>2024</p><p><strong>Thrash GW</strong>, Wang E, Sun Y, Walker HC, Shirvalkar P, Becker BK, Holland MT. <span class="t">Clinical Trials in Neuromodulatory Treatment of Drug-Resistant Hypertension and the Need for Spinal Cord Stimulation Trials: A PRISMA Systematic Review.</span> <em>Bioelectronic Medicine</em> 10(1):28. <span class="ids"><a href="https://doi.org/10.1186/s42234-024-00160-7">doi</a><a href="https://pubmed.ncbi.nlm.nih.gov/39617923/">pubmed</a></span></p></div>
+<div class="cards">
+<div class="card"><p>Neuromodulation: Technology at the Neural Interface • 2026</p><p><a href="https://doi.org/10.1016/j.neurom.2026.08.008">Therapeutic Deep Brain Stimulation for Restless Legs Syndrome: A Systematic Review and Meta-Analysis</a></p><p><strong>Thrash GW</strong>, et al.</p></div>
+<div class="card"><p>Sleep and Breathing • 2026</p><p><a href="https://doi.org/10.1007/s11325-026-03638-7">Neuromodulation for Restless Legs Syndrome: A Systematic Review and Mechanistic Considerations for Spinal Cord Stimulation</a></p><p><strong>Thrash GW</strong>, et al.</p></div>
+<div class="card"><p>Bioelectronic Medicine • 2024</p><p><a href="https://doi.org/10.1186/s42234-024-00160-7">Clinical Trials in Neuromodulatory Treatment of Drug-Resistant Hypertension and the Need for Spinal Cord Stimulation Trials: A PRISMA Systematic Review</a></p><p><strong>Thrash GW</strong>, et al.</p></div>
+</div>
 <p><a href="/publications/">All publications</a></p>
+<h2 id="writing">Writing</h2>
+<p>Coming soon.</p>
+<h2 id="commonplace">Commonplace</h2>
+<p>Coming soon.</p>
 
 </main>
 <footer class="colophon">
   <div class="wrap">
     <svg class="orn" viewBox="0 0 72 8" aria-hidden="true"><path d="M0 2.5H66.5a1.5 1.5 0 0 1 0 3H0" fill="none" stroke="currentColor" stroke-width=".8"/><rect x="42" y="2.5" width="3.2" height="3" fill="currentColor"/><rect x="48" y="2.5" width="3.2" height="3" fill="currentColor"/><rect class="on" x="54" y="2.5" width="3.2" height="3"/><rect x="60" y="2.5" width="3.2" height="3" fill="currentColor"/></svg>
     <p><a href="mailto:gthrash@uab.edu">gthrash@uab.edu</a> • <a href="https://scholar.google.com/citations?user=FJ4ulF4AAAAJ" rel="me">Google Scholar</a> • <a href="https://orcid.org/0009-0008-1061-8679" rel="me">ORCID</a> • <a href="https://github.com/gthrash54" rel="me">GitHub</a> • <a href="https://www.linkedin.com/in/garrett-thrash-311709430/" rel="me">LinkedIn</a></p>
-    <p class="fine">© 2026 Garrett W. Thrash • Set in EB Garamond • Built with pandoc</p>
+    <p class="fine">© 2026 Garrett W. Thrash • Set in EB Garamond • Built with pandoc • Neuron drawings by Santiago Ramón y Cajal (public domain)</p>
   </div>
 </footer>
 </body>
