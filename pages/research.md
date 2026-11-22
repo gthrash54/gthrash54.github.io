@@ -11,7 +11,7 @@ nav: research
 
 **Walker Research Lab, UAB Neurology**\
 Dr. Harrison Walker\
-*Planned dissertation laboratory, Neuroengineering Ph.D.*
+*Planned dissertation laboratory, Neuroengineering PhD*
 :::
 
 Machine-learning decoding of subthalamic nucleus recordings, including evoked resonant neural activity (ERNA), for adaptive deep brain stimulation and brain–computer interfaces.

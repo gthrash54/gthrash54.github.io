@@ -1,6 +1,6 @@
 ---
 title: Garrett W. Thrash
-description: Garrett W. Thrash, M.D. candidate (Class of 2027) and incoming Ph.D. student in Neuroengineering at the University of Alabama at Birmingham. Deep brain stimulation, intracranial recordings, evoked resonant neural activity (ERNA), neuromodulation, and equitable access to neurological care.
+description: Garrett W. Thrash, MD candidate (Class of 2027) and incoming PhD student in Neuroengineering at the University of Alabama at Birmingham. Deep brain stimulation, intracranial recordings, evoked resonant neural activity (ERNA), neuromodulation, and equitable access to neurological care.
 heading: false
 jsonld: true
 class: home
@@ -14,7 +14,7 @@ class: home
 <header class="hero">
 <div>
 <h1>Garrett W. Thrash</h1>
-<p class="status">M.D. Candidate (c/o 2027) • Incoming Ph.D. Student, Neuroengineering (2027)</p>
+<p class="status">MD Candidate (Class of 2027) • Incoming PhD Student, Neuroengineering (2027)</p>
 <p class="lede">In Dr. Harrison Walker’s lab I work on decoding subthalamic nucleus recordings, including evoked resonant neural activity (ERNA), for adaptive deep brain stimulation.</p>
 <p class="links"><a href="mailto:gthrash@uab.edu">Email</a> <a href="https://scholar.google.com/citations?user=FJ4ulF4AAAAJ" rel="me">Scholar</a> <a href="https://orcid.org/0009-0008-1061-8679" rel="me">ORCID</a> <a href="https://github.com/gthrash54" rel="me">GitHub</a> <a href="https://www.linkedin.com/in/garrett-thrash-311709430/" rel="me">LinkedIn</a></p>
 </div>

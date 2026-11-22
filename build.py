@@ -109,7 +109,7 @@ JSONLD = {
     "url": SITE + "/",
     "image": SITE + "/headshot.jpg",
     "email": "mailto:gthrash@uab.edu",
-    "jobTitle": "M.D. Candidate; Incoming Ph.D. Student, Neuroengineering",
+    "jobTitle": "MD Candidate; Incoming PhD Student, Neuroengineering",
     "affiliation": {"@type": "CollegeOrUniversity", "name": "University of Alabama at Birmingham"},
     "alumniOf": {"@type": "CollegeOrUniversity", "name": "Birmingham-Southern College"},
     "sameAs": [

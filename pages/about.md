@@ -1,13 +1,13 @@
 ---
 title: About
-description: "About Garrett W. Thrash, M.D. candidate and incoming Ph.D. student in Neuroengineering at UAB, with his CV, research experience, talks, teaching, and bios for organizers."
+description: "About Garrett W. Thrash, MD candidate and incoming PhD student in Neuroengineering at UAB, with his CV, research experience, talks, teaching, and bios for organizers."
 nav: about
 now: 2026-11
 ---
 
 <figure class="portrait"><img src="/headshot.jpg" alt="Garrett Thrash with his son on his shoulders" width="900" height="900"></figure>
 
-I am a fourth-year medical student at the UAB Heersink School of Medicine and an incoming Ph.D. student in Neuroengineering (2027) at the University of Alabama at Birmingham. I am in Dr. Harrison Walker's lab, where I work on machine-learning decoding of subthalamic nucleus recordings, including evoked resonant neural activity (ERNA), for adaptive deep brain stimulation and brain–computer interfaces.
+I am a fourth-year medical student at the UAB Heersink School of Medicine and an incoming PhD student in Neuroengineering (2027) at the University of Alabama at Birmingham. I am in Dr. Harrison Walker's lab, where I work on machine-learning decoding of subthalamic nucleus recordings, including evoked resonant neural activity (ERNA), for adaptive deep brain stimulation and brain–computer interfaces.
 
 My work to date spans neuromodulation for movement and sleep disorders, evidence synthesis and meta-analysis in neurosurgery and neurology, and equitable access to neurological care in low- and middle-income countries. Before medicine I studied chemistry at Birmingham-Southern College, where I also played football, and I grew up working on a potato farm in northeast Alabama. I am also a 2026–2027 Doximity Op-Med Medical Writing Fellow.
 
@@ -22,7 +22,6 @@ Open to research collaborations, speaking, and conversations with people buildin
 
 - Research in the Walker Lab: decoding subthalamic nucleus recordings made during DBS surgery, including evoked resonant neural activity (ERNA).
 - Writing the first essays for the 2026–27 Doximity Op-Med Fellowship.
-- Developing a device concept for recording from deep brain targets (concept stage). Interested? [Email me](mailto:gthrash@uab.edu?subject=Neurotechnology).
 :::
 
 ## Curriculum Vitae {#cv}
@@ -34,14 +33,14 @@ Open to research collaborations, speaking, and conversations with people buildin
 ::: entry
 2027 – 2032 (exp.)
 
-**Ph.D., Neuroengineering**\
+**PhD, Neuroengineering**\
 University of Alabama at Birmingham, Birmingham, AL
 :::
 
 ::: entry
 2023 – 2027 (exp.)
 
-**M.D., Distinction in Health Equity**\
+**MD, Distinction in Health Equity**\
 UAB Heersink School of Medicine, Birmingham, AL
 :::
 
@@ -86,7 +85,7 @@ Health Equity Scholar, UAB Heersink School of Medicine
 **Walker Research Lab, UAB Neurology**\
 Dr. Harrison Walker
 
-- Machine-learning decoding of subthalamic nucleus recordings, including evoked resonant neural activity (ERNA), for adaptive deep brain stimulation and brain–computer interfaces; planned dissertation laboratory for the Neuroengineering Ph.D.
+- Machine-learning decoding of subthalamic nucleus recordings, including evoked resonant neural activity (ERNA), for adaptive deep brain stimulation and brain–computer interfaces; planned dissertation laboratory for the Neuroengineering PhD
 :::
 
 ::: entry
@@ -181,7 +180,7 @@ June 2026
 ::: entry
 2025
 
-**Thrash GW**, Boudreau H\*, Stacey GK, Razi R, Rives C, Massey H, Brockington D, Cho H, George J, Holland MT. Diverging perceptions between program leadership and applicants on the neurosurgery arms race to research: a single-center survey. Galbraith Neurosurgery Research Symposium, Birmingham, AL. \*Presented by second author.
+**Thrash GW**, Boudreau H\*, Stacey GK, Razi R, Rives C, Massie H, Brockington D, Cho H, George J, Holland MT. Diverging perceptions between program leadership and applicants on the neurosurgery arms race to research: a single-center survey. Galbraith Neurosurgery Research Symposium, Birmingham, AL, 2025. \*Presented by second author.
 :::
 
 ::: entry
@@ -240,13 +239,13 @@ Bios and a headshot you may use as-is. For dates and topics, email [gthrash@uab.
 ### Short Bio
 
 ::: bio
-Garrett Thrash is an M.D. candidate (Class of 2027) at the UAB Heersink School of Medicine and an incoming Ph.D. student in Neuroengineering at the University of Alabama at Birmingham. In Dr. Harrison Walker's lab he works on machine-learning decoding of subthalamic nucleus recordings, including evoked resonant neural activity (ERNA), for adaptive deep brain stimulation. He has co-authored {{pub_count}} peer-reviewed papers, coordinates the Mission:Brain Global Neurosurgery Research Group, and is a 2026–27 Doximity Op-Med Writing Fellow.
+Garrett Thrash is an MD candidate (Class of 2027) at the UAB Heersink School of Medicine and an incoming PhD student in Neuroengineering at the University of Alabama at Birmingham. In Dr. Harrison Walker's lab he works on machine-learning decoding of subthalamic nucleus recordings, including evoked resonant neural activity (ERNA), for adaptive deep brain stimulation. He has co-authored {{pub_count}} peer-reviewed papers, coordinates the Mission:Brain Global Neurosurgery Research Group, and is a 2026–27 Doximity Op-Med Writing Fellow.
 :::
 
 ### Long Bio
 
 ::: bio
-Garrett Thrash is an M.D. candidate (Class of 2027) at the UAB Heersink School of Medicine and an incoming Ph.D. student in Neuroengineering at the University of Alabama at Birmingham. He is in Dr. Harrison Walker's lab, where his research uses machine learning to decode subthalamic nucleus recordings, including evoked resonant neural activity (ERNA), with the goal of stimulation that responds to what the brain is doing. His earlier research, in Dr. Marshall Holland's group, produced systematic reviews and meta-analyses in neuromodulation and neurosurgery, including work on deep brain and spinal cord stimulation for restless legs syndrome. He has co-authored {{pub_count}} peer-reviewed papers. He coordinates the roughly 35-member Mission:Brain Global Neurosurgery Research Group, has served as president of the UAB Mission:Brain chapter and its regional outreach chair supporting Sierra Leone's first public neurosurgical service, and worked with the Children's of Alabama pediatric neurosurgery team on Alabama House Bill 384, which established folic acid fortification of corn masa. He is a member of Alpha Omega Alpha and the Gold Humanism Honor Society and a 2026–27 Doximity Op-Med Writing Fellow. Before medicine he studied chemistry and played football at Birmingham-Southern College, and he grew up working on a potato farm in northeast Alabama.
+Garrett Thrash is an MD candidate (Class of 2027) at the UAB Heersink School of Medicine and an incoming PhD student in Neuroengineering at the University of Alabama at Birmingham. He is in Dr. Harrison Walker's lab, where his research uses machine learning to decode subthalamic nucleus recordings, including evoked resonant neural activity (ERNA), with the goal of stimulation that responds to what the brain is doing. His earlier research, in Dr. Marshall Holland's group, produced systematic reviews and meta-analyses in neuromodulation and neurosurgery, including work on deep brain and spinal cord stimulation for restless legs syndrome. He has co-authored {{pub_count}} peer-reviewed papers. He coordinates the roughly 35-member Mission:Brain Global Neurosurgery Research Group, has served as president of the UAB Mission:Brain chapter and its regional outreach chair supporting Sierra Leone's first public neurosurgical service, and worked with the Children's of Alabama pediatric neurosurgery team on Alabama House Bill 384, which established folic acid fortification of corn masa. He is a member of Alpha Omega Alpha and the Gold Humanism Honor Society and a 2026–27 Doximity Op-Med Writing Fellow. Before medicine he studied chemistry and played football at Birmingham-Southern College, and he grew up working on a potato farm in northeast Alabama.
 :::
 
 ### Headshot
