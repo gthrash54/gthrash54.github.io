@@ -19,11 +19,11 @@ Also on [PubMed](https://pubmed.ncbi.nlm.nih.gov/?term=Thrash+GW%5BAuthor%5D&sor
 ## Submitted, Under Review
 
 ::: refs
-- **Thrash GW**, Stacey GK, Razi R, Rives C, Massie H, Brockington D, Cho H, Boudreau H, George J, Holland MT. Diverging perceptions between program leadership and applicants on the neurosurgery arms race to research: a single-center survey. *Neurosurgical Review*.
+- Arynchyna-Smith A\*, Hereford W\*, **Thrash GW**, McClugage SG III, Lepard J, Bustrak S, Mohammad L, Akbari SHA, Blount JP, Feldman MJ. Closing the corn masa gap: a neurosurgeon-led multistate policy campaign for spina bifida prevention. *Neurosurgical Focus*. \*Co-first authors.
+- **Thrash GW**, Stacey GK, Razi R, Rives C, Massie H, Brockington D, Cho H, Boudreau H, George J, Holland MT. Diverging perceptions between program leadership and applicants on the neurosurgery arms race to research: a single-center survey. *Neurosurgical Review*. In revision.
 - **Thrash GW**, Stacey GK, Wang E, Massie H, Jones JG. Coronary artery disease as a predictor for resolution of nonacute subdural hematoma after middle meningeal artery embolization: a single-center study. *Interventional Neuroradiology*.
-- Del Campos I, **Thrash GW**, et al., Still M. Early predictors of poor outcomes in traumatic brain injury in a resource-limited setting: a retrospective study from Sierra Leone. *World Neurosurgery*.
+- Del Campos I, **Thrash GW**, et al., Still M. Early predictors of poor outcomes in traumatic brain injury in a resource-limited setting: a retrospective study from Sierra Leone. *World Neurosurgery*. In revision.
 - Azan A, **Thrash GW**, et al., Still M. Global suturing mission: the role of global surgical workshops for equitable access to surgical education. *Journal of Surgical Education*.
-- Coracan J, Azan A, **Thrash GW**, et al., Quiñones-Hinojosa A. International hackathon to build an equitable innovation landscape in global neurosurgery. *Neurosurgery*.
 :::
 
 Additional first- and co-authored manuscripts are in preparation, including work on intra-arterial therapy for glioblastoma, venous sinus stenting, and electrocorticography in executive function.
