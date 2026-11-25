@@ -68,32 +68,34 @@ Measurement of the Walker lab's DBS evoked responses (ERNA), in progress\
 Python
 :::
 
+## Agentic Engineering {#agentic}
+
 ::: entry
 2026
 
-**NeuroEval and biomedical research tools**\
-*AI-built, directed by me* • Python, NumPy, SciPy, pytest
+**[NeuroEval and biomedical research tools](/projects/neuroeval/)**\
+*Agentically engineered by me* • Python, NumPy, SciPy, pytest
 :::
 
 ::: entry
 2026
 
-**Personal AI infrastructure for research and medical education**\
-*AI-built, directed by me* • Python, SQLite, systemd, Codex, Claude Code
+**[Personal AI infrastructure for research and medical education](/projects/ai-infrastructure/)**\
+*Agentically engineered by me* • Python, SQLite, systemd, Codex, Claude Code
 :::
 
 ::: entry
 2026
 
 **[DBS recording inventory and derivatives](/projects/dbs-recording-inventory/)**\
-*AI-built, directed by me* • Python
+*Agentically engineered by me* • Python
 :::
 
 ::: entry
 2026
 
 **[AI-assisted evidence screening](/projects/ai-evidence-screening/)**\
-*AI-built, directed by me* • Python, Claude Code agents, Covidence
+*Agentically engineered by me* • Python, Claude Code agents, Covidence
 :::
 
 [All publications, manuscripts under review, and posters](/publications/)

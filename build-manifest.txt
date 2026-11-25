@@ -11,7 +11,9 @@ commonplace/topics/signal-processing/index.html
 commonplace/topics/statistics/index.html
 index.html
 projects/ai-evidence-screening/index.html
+projects/ai-infrastructure/index.html
 projects/dbs-recording-inventory/index.html
+projects/neuroeval/index.html
 publications.html
 publications/index.html
 research.html

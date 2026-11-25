@@ -1,6 +1,6 @@
 ---
 title: AI-Assisted Evidence Screening
-description: A hybrid human and AI title-and-abstract screening pipeline for large systematic and scoping reviews, designed by Garrett W. Thrash and built by AI coding agents.
+description: A hybrid human and AI title-and-abstract screening pipeline for large systematic and scoping reviews, agentically engineered by Garrett W. Thrash.
 nav: research
 ---
 
@@ -13,7 +13,7 @@ In use
 ::: entry
 Role
 
-Designed and directed by me; code written by AI agents
+Agentically engineered by me
 :::
 
 ::: entry
@@ -29,4 +29,4 @@ Hybrid human–AI screening for a scoping review of roughly 10,000 records.
 - The model then serves as second reviewer on the retained set, with human adjudication of every disagreement.
 - Designed to meet the 2025 Cochrane/Campbell/JBI/CEE position statement and the RAISE recommendations on AI in evidence synthesis.
 
-[Research](/research/#tools)
+[Agentic engineering](/research/#agentic)
