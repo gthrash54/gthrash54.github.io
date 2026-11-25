@@ -218,6 +218,15 @@ Program Coordinator II
 :::
 
 ::: entry
+2026 – present
+
+**Select Med Tutors**\
+USMLE Tutor
+
+- Remote tutor for USMLE Step 1 and Step 2 CK.
+:::
+
+::: entry
 2023 – present
 
 **Research Mentorship**\
