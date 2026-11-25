@@ -208,6 +208,16 @@ Posters and abstracts are listed with the [publications](/publications/#posters)
 ## Teaching {#teaching}
 
 ::: entry
+2026 – present
+
+**Office of Medical Student Services, UAB Heersink School of Medicine**\
+Program Coordinator II
+
+- Drive AI integration in medical education across Medical Student Services, applying agentic engineering and LLM workflows.
+- Coordinate the medical student tutoring program.
+:::
+
+::: entry
 2023 – present
 
 **Research Mentorship**\

@@ -71,6 +71,20 @@ Python
 ::: entry
 2026
 
+**NeuroEval and biomedical research tools**\
+*AI-built, directed by me* • Python, NumPy, SciPy, pytest
+:::
+
+::: entry
+2026
+
+**Personal AI infrastructure for research and medical education**\
+*AI-built, directed by me* • Python, SQLite, systemd, Codex, Claude Code
+:::
+
+::: entry
+2026
+
 **[DBS recording inventory and derivatives](/projects/dbs-recording-inventory/)**\
 *AI-built, directed by me* • Python
 :::
@@ -79,7 +93,7 @@ Python
 2026
 
 **[AI-assisted evidence screening](/projects/ai-evidence-screening/)**\
-*AI-built, directed by me* • Python, Anthropic API, Covidence
+*AI-built, directed by me* • Python, Claude Code agents, Covidence
 :::
 
 [All publications, manuscripts under review, and posters](/publications/)

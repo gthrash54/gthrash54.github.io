@@ -19,7 +19,7 @@ Designed and directed by me; code written by AI agents
 ::: entry
 Stack
 
-Python, Anthropic API, Covidence
+Python, Claude Code agents, Covidence
 :::
 
 Hybrid human–AI screening for a scoping review of roughly 10,000 records.
