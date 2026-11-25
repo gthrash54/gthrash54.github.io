@@ -63,6 +63,14 @@ Python
 ::: entry
 2026
 
+**[analyze_dbs](https://github.com/gthrash54/analyze_dbs)**\
+Measurement of the Walker lab's DBS evoked responses (ERNA), in progress\
+Python
+:::
+
+::: entry
+2026
+
 **[DBS recording inventory and derivatives](/projects/dbs-recording-inventory/)**\
 *AI-built, directed by me* • Python
 :::
