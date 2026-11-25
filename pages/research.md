@@ -37,7 +37,7 @@ Dr. Marshall Holland
 2024 – present
 
 **Global Neurosurgery Research Group, Mission:Brain Foundation**\
-Coordinator
+Director (2024 – July 2026), Lead Advisor (July 2026 – present)
 :::
 
 <!-- pubs:keys Sun.etal2026NeighborhoodSocioeconomic toussaint2026scorev feldman2026foralab dossantosrubio2025govpol sun2025assare -->

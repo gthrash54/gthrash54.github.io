@@ -92,9 +92,10 @@ Dr. Harrison Walker
 2024 – present
 
 **Global Neurosurgery Research Group, Mission:Brain Foundation**\
-Coordinator
+Director (2024 – July 2026), Lead Advisor (July 2026 – present)
 
-- Coordinate roughly 35 international medical graduates, mainly from low- and middle-income countries, in a multi-project research group advancing equitable access to neurological care.
+- Directed roughly 40 international medical graduates, mainly from low- and middle-income countries, in a multi-project research group advancing equitable access to neurological care.
+- Moved into an advisory role in July 2026 and remain the group's manuscript submission contact.
 - Lead members across many time zones and backgrounds toward shared goals; sharpen scientific writing, study design, and critical review across the group.
 :::
 
@@ -137,11 +138,12 @@ Dr. Kate Hayden
 2023 – present
 
 **Mission:Brain Foundation**\
-UAB Chapter President • Regional Chair of Outreach • Coordinator, Global Neurosurgery Research Group
+UAB Chapter Co-President • Regional Chair of Outreach • Head of Bridge • Director and Lead Advisor, Global Neurosurgery Research Group
 
-- Launched Project:RISE (annual lecture on research equity for international medical graduates in low- and middle-income countries), NeuroCamp (a year-long neuroscience curriculum for Birmingham middle school students), and a spina bifida prevention campaign promoting corn masa folate fortification.
-- As Outreach Chair, direct fundraising, inventory, and equipment logistics supporting Sierra Leone's first publicly accessible neurosurgical service, in coordination with the WFNS and the Ministry of Health.
-- Coordinate the roughly 35-member Global Neurosurgery Research Group; oversee a manuscript bundle mapping global neurosurgery stakeholders in line with the Boston Declaration.
+- Approximately 1,000 volunteer hours across chapter, outreach, and research-group roles (2023 – present).
+- UAB chapter Co-Vice President (2023 – 2024), then Co-President (2024 – 2025). Launched Project:RISE (annual lecture on research equity for international medical graduates in low- and middle-income countries), co-founded NeuroCamp (neuroscience outreach for Birmingham students, reaching more than 300 K–8 students across three schools as a chapter total, with a year-long middle school curriculum), and a spina bifida prevention campaign promoting corn masa folate fortification.
+- As Outreach Chair and head of Bridge, direct fundraising, inventory, and equipment logistics supporting Sierra Leone's first publicly accessible neurosurgical service, in coordination with the WFNS and the Ministry of Health.
+- Directed the roughly 40-member Global Neurosurgery Research Group until July 2026, now Lead Advisor. Oversee a manuscript bundle mapping global neurosurgery stakeholders in line with the Boston Declaration.
 :::
 
 ::: entry
@@ -164,9 +166,9 @@ Rural Health. Social Determinants of Health Grand Rounds, UAB Heersink School of
 :::
 
 ::: entry
-2024
+April 2024
 
-Systematic Review Methodology. Project:RISE Research Equity Lecture, UAB.
+Systematic Review Methodology. Project:RISE Research Equity Lecture, UAB. Co-led the opening session of a four-week research-skills webinar series for medical students in Lebanon (115 registered, more than 80 attended).
 :::
 
 ### Oral Presentations
@@ -190,7 +192,7 @@ April 24, 2025
 :::
 
 ::: entry
-Spring 2024
+April 2024
 
 **Thrash GW**, Sun Y, Del Bene V, Bentley N. Intracranial recordings toward brain mapping of executive function: a systematic review. NeuroGateways Consortium of Neuroengineering and Brain-Computer Interfaces, Birmingham, AL.
 :::
@@ -206,19 +208,21 @@ Posters and abstracts are listed with the [publications](/publications/#posters)
 ## Teaching {#teaching}
 
 ::: entry
-2024 – present
+2023 – present
 
-**Research Mentorship, UAB Heersink School of Medicine**\
-Medical students
+**Research Mentorship**\
+Medical, international, graduate, undergraduate, and high school trainees
 
-- Mentor medical students in study design, scientific writing, and residency planning; mentees are co-authors on published papers, manuscripts under review, and conference presentations.
+- Individually mentored 19 trainees: 9 medical students, 3 international trainees, 1 incoming PhD student, 5 undergraduates, and 1 high school student.
+- Teach research methods, systematic review and meta-analysis, scientific writing, and medical school, residency, and graduate school applications. Mentees are authors on published papers, manuscripts under review, and conference presentations, including an undergraduate mentee's first- and corresponding-author paper in *Stereotactic and Functional Neurosurgery* (2026).
+- Helped plan project assignments and mentor matching for 15 Sierra Leonean students (2025) and co-developed the research-skills surveys for the Mission:Brain Research Peer Mentorship Program. The full mentee list is in the [CV](/cv.pdf).
 :::
 
 ::: entry
 2024 – 2025
 
 **Multidisciplinary Research Stewardship, UAB**\
-Neurosurgery Chair
+Neurosurgery Liaison
 
 - Hosted office hours and presentations on research fundamentals for medical students and connected students interested in neurosurgery with career mentors.
 :::
@@ -239,13 +243,13 @@ Bios and a headshot you may use as-is. For dates and topics, email [gthrash@uab.
 ### Short Bio
 
 ::: bio
-Garrett Thrash is an MD candidate (Class of 2027) at the UAB Heersink School of Medicine and an incoming PhD student in Neuroengineering at the University of Alabama at Birmingham. In Dr. Harrison Walker's lab he works on machine-learning decoding of subthalamic nucleus recordings, including evoked resonant neural activity (ERNA), for adaptive deep brain stimulation. He has co-authored {{pub_count}} peer-reviewed papers, coordinates the Mission:Brain Global Neurosurgery Research Group, and is a 2026–27 Doximity Op-Med Writing Fellow.
+Garrett Thrash is an MD candidate (Class of 2027) at the UAB Heersink School of Medicine and an incoming PhD student in Neuroengineering at the University of Alabama at Birmingham. In Dr. Harrison Walker's lab he works on machine-learning decoding of subthalamic nucleus recordings, including evoked resonant neural activity (ERNA), for adaptive deep brain stimulation. He has co-authored {{pub_count}} peer-reviewed papers, advises the Mission:Brain Global Neurosurgery Research Group, and is a 2026–27 Doximity Op-Med Writing Fellow.
 :::
 
 ### Long Bio
 
 ::: bio
-Garrett Thrash is an MD candidate (Class of 2027) at the UAB Heersink School of Medicine and an incoming PhD student in Neuroengineering at the University of Alabama at Birmingham. He is in Dr. Harrison Walker's lab, where his research uses machine learning to decode subthalamic nucleus recordings, including evoked resonant neural activity (ERNA), with the goal of stimulation that responds to what the brain is doing. His earlier research, in Dr. Marshall Holland's group, produced systematic reviews and meta-analyses in neuromodulation and neurosurgery, including work on deep brain and spinal cord stimulation for restless legs syndrome. He has co-authored {{pub_count}} peer-reviewed papers. He coordinates the roughly 35-member Mission:Brain Global Neurosurgery Research Group, has served as president of the UAB Mission:Brain chapter and its regional outreach chair supporting Sierra Leone's first public neurosurgical service, and worked with the Children's of Alabama pediatric neurosurgery team on Alabama House Bill 384, which established folic acid fortification of corn masa. He is a member of Alpha Omega Alpha and the Gold Humanism Honor Society and a 2026–27 Doximity Op-Med Writing Fellow. Before medicine he studied chemistry and played football at Birmingham-Southern College, and he grew up working on a potato farm in northeast Alabama.
+Garrett Thrash is an MD candidate (Class of 2027) at the UAB Heersink School of Medicine and an incoming PhD student in Neuroengineering at the University of Alabama at Birmingham. He is in Dr. Harrison Walker's lab, where his research uses machine learning to decode subthalamic nucleus recordings, including evoked resonant neural activity (ERNA), with the goal of stimulation that responds to what the brain is doing. His earlier research, in Dr. Marshall Holland's group, produced systematic reviews and meta-analyses in neuromodulation and neurosurgery, including work on deep brain and spinal cord stimulation for restless legs syndrome. He has co-authored {{pub_count}} peer-reviewed papers. He directed the roughly 40-member Mission:Brain Global Neurosurgery Research Group until July 2026 and now serves as its lead advisor, has served as co-president of the UAB Mission:Brain chapter and its regional outreach chair supporting Sierra Leone's first public neurosurgical service, and worked with the Children's of Alabama pediatric neurosurgery team on Alabama House Bill 384, which established folic acid fortification of corn masa. He is a member of Alpha Omega Alpha and the Gold Humanism Honor Society and a 2026–27 Doximity Op-Med Writing Fellow. Before medicine he studied chemistry and played football at Birmingham-Southern College, and he grew up working on a potato farm in northeast Alabama.
 :::
 
 ### Headshot
